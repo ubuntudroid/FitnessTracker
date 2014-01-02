@@ -1,0 +1,76 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:0.7.+'
+    }
+}
+apply plugin: 'android'
+
+configurations {
+    preprocess
+}
+
+dependencies {
+    compile 'com.android.support:support-v4:18.0.0'
+}
+
+dependencies {
+    compile 'com.j256.ormlite:ormlite-android:4.48'
+}
+
+dependencies {
+    compile 'com.squareup:otto:1.3.4'
+}
+
+dependencies {
+    compile 'com.path:android-priority-jobqueue:0.9.9'
+}
+
+dependencies {
+    preprocess 'com.squareup.dagger:dagger-compiler:1.2.0'
+    compile 'com.squareup.dagger:dagger:1.2.0'
+}
+
+repositories {
+    mavenCentral()
+}
+
+android {
+    compileSdkVersion 19
+    buildToolsVersion "19.0.0"
+
+    defaultConfig {
+        minSdkVersion 14
+        targetSdkVersion 19
+        versionCode 1
+        versionName "1.0"
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_7
+        targetCompatibility JavaVersion.VERSION_1_7
+    }
+    buildTypes {
+        release {
+            runProguard false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
+        }
+    }
+}
+
+android.applicationVariants.all { variant ->
+    //Where to place the generated code
+    variant.ext.set("dagger_gen_${variant.dirName}", file("${project.buildDir}/source/dagger_gen/${variant.dirName}"))
+
+    //Do the actual preprocessor things
+    variant.javaCompile.doFirst {
+        File out = variant.ext.get("dagger_gen_${variant.dirName}")
+        out.mkdirs()
+        variant.javaCompile.options.compilerArgs += [
+                '-processorpath', configurations.preprocess.getAsPath(),
+                '-s', out
+        ]
+    }
+}
