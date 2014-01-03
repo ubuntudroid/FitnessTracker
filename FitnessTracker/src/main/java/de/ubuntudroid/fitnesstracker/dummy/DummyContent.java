@@ -27,9 +27,9 @@ public class DummyContent {
 
     static {
         // Add 3 sample items.
-        addItem(new DummyItem(1, 127.8f, 0.313f, 0.492f, 0.274f));
-        addItem(new DummyItem(2, 127.2f, 0.311f, 0.501f, 0.270f));
-        addItem(new DummyItem(3, 126.6f, 0.329f, 0.487f, 0.268f));
+        addItem(new DummyItem(1, 127.8f, 31.3f, 49.2f, 27.4f));
+        addItem(new DummyItem(2, 127.2f, 31.1f, 50.1f, 27.0f));
+        addItem(new DummyItem(3, 126.6f, 32.9f, 48.7f, 26.8f));
         addItem(new DummyItem(4, -1, -1, -1, -1));
     }
 
