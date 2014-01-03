@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="WeekDataInputView">
+        <attr name="labelTitle" format="string" />
+        <attr name="hint" format="string" />
+    </declare-styleable>
+</resources>

@@ -1,9 +1,53 @@
-<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/week_detail"
-    style="?android:attr/textAppearanceLarge"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    tools:context="de.ubuntudroid.fitnesstracker.WeekDetailFragment"
     android:padding="16dp"
-    android:textIsSelectable="true"
-    tools:context="de.ubuntudroid.fitnesstracker.WeekDetailFragment" />
+    android:orientation="vertical">
+
+    <de.ubuntudroid.fitnesstracker.view.WeekDataInputView
+        android:id="@+id/weight_text"
+        style="?android:attr/textAppearanceLarge"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        app:labelTitle="Weight"
+        app:hint="Type in your current weight here..."
+        />
+
+    <de.ubuntudroid.fitnesstracker.view.WeekDataInputView
+        android:id="@+id/muscle_fraction_text"
+        style="?android:attr/textAppearanceLarge"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        app:labelTitle="Muscle Fraction"
+        app:hint="Type in your muscle fraction here, e.g. 0.3..."
+        />
+
+    <de.ubuntudroid.fitnesstracker.view.WeekDataInputView
+        android:id="@+id/water_fraction_text"
+        style="?android:attr/textAppearanceLarge"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        app:labelTitle="Water Fraction"
+        app:hint="Type in your water fraction here, e.g. 0.3..."
+        />
+
+    <de.ubuntudroid.fitnesstracker.view.WeekDataInputView
+        android:id="@+id/fat_fraction_text"
+        style="?android:attr/textAppearanceLarge"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        app:labelTitle="Fat Fraction"
+        app:hint="Type in your fat fraction here, e.g. 0.3..."
+        />
+
+</LinearLayout>
+
+

@@ -10,7 +10,7 @@ import com.squareup.otto.Bus;
 
 import javax.inject.Inject;
 
-import de.ubuntudroid.fitnesstracker.base.BaseListFragment;
+import de.ubuntudroid.fitnesstracker.view.base.BaseListFragment;
 import de.ubuntudroid.fitnesstracker.dummy.DummyContent;
 import de.ubuntudroid.fitnesstracker.events.WeekSelectedEvent;
 

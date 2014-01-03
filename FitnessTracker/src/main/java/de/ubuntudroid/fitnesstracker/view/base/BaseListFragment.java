@@ -1,4 +1,4 @@
-package de.ubuntudroid.fitnesstracker.base;
+package de.ubuntudroid.fitnesstracker.view.base;
 
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;

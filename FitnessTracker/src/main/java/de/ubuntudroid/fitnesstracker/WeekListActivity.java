@@ -2,14 +2,13 @@ package de.ubuntudroid.fitnesstracker;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
 
 import com.squareup.otto.Bus;
 import com.squareup.otto.Subscribe;
 
 import javax.inject.Inject;
 
-import de.ubuntudroid.fitnesstracker.base.BaseFragmentActivity;
+import de.ubuntudroid.fitnesstracker.view.base.BaseFragmentActivity;
 import de.ubuntudroid.fitnesstracker.events.WeekSelectedEvent;
 
 

@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import de.ubuntudroid.fitnesstracker.dummy.DummyContent;
+import de.ubuntudroid.fitnesstracker.view.WeekDataInputView;
 
 /**
  * A fragment representing a single Week detail screen.
@@ -22,6 +23,7 @@ public class WeekDetailFragment extends Fragment {
      */
     public static final String ARG_ITEM_ID = "item_id";
 
+    // TODO replace dummy item by FitnessWeek
     /**
      * The dummy content this fragment is presenting.
      */
@@ -54,7 +56,26 @@ public class WeekDetailFragment extends Fragment {
 
         // Show the dummy content as text in a TextView.
         if (mItem != null) {
-            ((TextView) rootView.findViewById(R.id.week_detail)).setText(mItem.content);
+            if (mItem.weight >= 0) {
+                WeekDataInputView weightView = (WeekDataInputView) rootView.findViewById(R.id.weight_text);
+                weightView.setText(String.valueOf(mItem.weight));
+                weightView.setEditable(false);
+            }
+            if (mItem.muscleFraction >= 0) {
+                WeekDataInputView muscleView = (WeekDataInputView) rootView.findViewById(R.id.muscle_fraction_text);
+                muscleView.setText(String.valueOf(mItem.muscleFraction));
+                muscleView.setEditable(false);
+            }
+            if (mItem.waterFraction >= 0) {
+                WeekDataInputView waterView = (WeekDataInputView) rootView.findViewById(R.id.water_fraction_text);
+                waterView.setText(String.valueOf(mItem.waterFraction));
+                waterView.setEditable(false);
+            }
+            if (mItem.fatFraction >= 0) {
+                WeekDataInputView fatView = (WeekDataInputView) rootView.findViewById(R.id.fat_fraction_text);
+                fatView.setText(String.valueOf(mItem.fatFraction));
+                fatView.setEditable(false);
+            }
         }
 
         return rootView;

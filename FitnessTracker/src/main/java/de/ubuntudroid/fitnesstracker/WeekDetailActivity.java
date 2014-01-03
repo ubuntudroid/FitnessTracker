@@ -2,11 +2,10 @@ package de.ubuntudroid.fitnesstracker;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.NavUtils;
 import android.view.MenuItem;
 
-import de.ubuntudroid.fitnesstracker.base.BaseFragmentActivity;
+import de.ubuntudroid.fitnesstracker.view.base.BaseFragmentActivity;
 
 /**
  * An activity representing a single Week detail screen. This
