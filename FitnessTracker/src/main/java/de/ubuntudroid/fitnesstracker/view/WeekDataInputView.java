@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -17,8 +16,9 @@ import de.ubuntudroid.fitnesstracker.R;
  */
 public class WeekDataInputView extends RelativeLayout {
 
-    private TextView label;
+    private TextView desc;
     private EditText input;
+    private TextView unit;
 
     public WeekDataInputView(Context context) {
         super(context);
@@ -38,8 +38,9 @@ public class WeekDataInputView extends RelativeLayout {
     private void init(Context context, AttributeSet attrs) {
         LinearLayout layout = (LinearLayout) LayoutInflater.from(context).inflate(R.layout.week_data_input, null);
         addView(layout);
-        label = (TextView) layout.findViewById(R.id.label);
+        desc = (TextView) layout.findViewById(R.id.label);
         input = (EditText) layout.findViewById(R.id.input);
+        unit = (TextView) layout.findViewById(R.id.label_unit);
 
         if (attrs != null) {
             TypedArray attributeArray = context.getTheme().obtainStyledAttributes(
@@ -48,21 +49,22 @@ public class WeekDataInputView extends RelativeLayout {
                     0, 0);
 
             try {
-                label.setText(attributeArray.getString(R.styleable.WeekDataInputView_labelTitle));
+                desc.setText(attributeArray.getString(R.styleable.WeekDataInputView_desc));
                 input.setHint(attributeArray.getString(R.styleable.WeekDataInputView_hint));
+                unit.setText(attributeArray.getString(R.styleable.WeekDataInputView_unit));
             } finally {
                 attributeArray.recycle();
             }
         } else {
             // default layout
-            label.setText("Value");
+            desc.setText("Value");
             input.setHint("Hint");
         }
     }
 
-    public void setLabel(String text) {
-        if (label != null) {
-            label.setText(text);
+    public void setDesc(String text) {
+        if (desc != null) {
+            desc.setText(text);
             invalidate();
             requestLayout();
         }
@@ -90,5 +92,13 @@ public class WeekDataInputView extends RelativeLayout {
             invalidate();
             requestLayout();
         }
+    }
+
+    public TextView getUnit() {
+        return unit;
+    }
+
+    public void setUnit(TextView unit) {
+        this.unit = unit;
     }
 }

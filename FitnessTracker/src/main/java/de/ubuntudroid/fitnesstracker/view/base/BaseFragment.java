@@ -1,14 +1,14 @@
 package de.ubuntudroid.fitnesstracker.view.base;
 
 import android.app.Activity;
-import android.support.v4.app.ListFragment;
+import android.support.v4.app.Fragment;
 
 import de.ubuntudroid.fitnesstracker.FitnessTrackerApplication;
 
 /**
  * Created by ubuntudroid on 03/01/14.
  */
-public class BaseListFragment extends ListFragment {
+public class BaseFragment extends Fragment {
 
     @Override public void onAttach(Activity activity) {
         super.onAttach(activity);

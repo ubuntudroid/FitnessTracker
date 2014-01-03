@@ -14,8 +14,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1"
-        app:labelTitle="Weight"
+        app:desc="Weight"
         app:hint="Type in your current weight here..."
+        app:unit="lbs"
         />
 
     <de.ubuntudroid.fitnesstracker.view.WeekDataInputView
@@ -24,8 +25,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1"
-        app:labelTitle="Muscle Fraction"
+        app:desc="Muscle"
         app:hint="Type in your muscle fraction here, e.g. 0.3..."
+        app:unit="%"
         />
 
     <de.ubuntudroid.fitnesstracker.view.WeekDataInputView
@@ -34,8 +36,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1"
-        app:labelTitle="Water Fraction"
+        app:desc="Water"
         app:hint="Type in your water fraction here, e.g. 0.3..."
+        app:unit="%"
         />
 
     <de.ubuntudroid.fitnesstracker.view.WeekDataInputView
@@ -44,8 +47,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1"
-        app:labelTitle="Fat Fraction"
+        app:desc="Fat"
         app:hint="Type in your fat fraction here, e.g. 0.3..."
+        app:unit="%"
         />
 
 </LinearLayout>

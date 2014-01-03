@@ -10,15 +10,15 @@ import com.j256.ormlite.table.DatabaseTable;
 @DatabaseTable(tableName = "fitnessweeks")
 public class FitnessWeek {
     @DatabaseField(id = true)
-    private int mWeekNumber;
+    private int weekNumber;
     @DatabaseField
-    private float mWeight;
+    private float weight = -1;
     @DatabaseField
-    private float mMuscleFraction;
+    private float muscleFraction = -1;
     @DatabaseField
-    private float mWaterFraction;
+    private float waterFraction = -1;
     @DatabaseField
-    private float mFatFraction;
+    private float fatFraction = -1;
 
     /**
      * no-arg constructor for ORMlite
@@ -27,51 +27,60 @@ public class FitnessWeek {
 
     }
 
+    public FitnessWeek(int weekNumber) {
+        this.weekNumber = weekNumber;
+    }
+
     public FitnessWeek(int weekNumber, float weight, float muscleFraction, float waterFraction, float fatFraction) {
-        this.mWeekNumber = weekNumber;
-        this.mWeight = weight;
-        this.mMuscleFraction = muscleFraction;
-        this.mWaterFraction = waterFraction;
-        this.mFatFraction = fatFraction;
+        this.weekNumber = weekNumber;
+        this.weight = weight;
+        this.muscleFraction = muscleFraction;
+        this.waterFraction = waterFraction;
+        this.fatFraction = fatFraction;
     }
 
     public int getWeekNumber() {
-        return mWeekNumber;
+        return weekNumber;
     }
 
     public void setWeekNumber(int mWeekNumber) {
-        this.mWeekNumber = mWeekNumber;
+        this.weekNumber = mWeekNumber;
     }
 
     public float getWeight() {
-        return mWeight;
+        return weight;
     }
 
     public void setWeight(float mWeight) {
-        this.mWeight = mWeight;
+        this.weight = mWeight;
     }
 
     public float getMuscleFraction() {
-        return mMuscleFraction;
+        return muscleFraction;
     }
 
     public void setMuscleFraction(float mMuscleFraction) {
-        this.mMuscleFraction = mMuscleFraction;
+        this.muscleFraction = mMuscleFraction;
     }
 
     public float getWaterFraction() {
-        return mWaterFraction;
+        return waterFraction;
     }
 
     public void setWaterFraction(float mWaterFraction) {
-        this.mWaterFraction = mWaterFraction;
+        this.waterFraction = mWaterFraction;
     }
 
     public float getFatFraction() {
-        return mFatFraction;
+        return fatFraction;
     }
 
     public void setFatFraction(float mFatFraction) {
-        this.mFatFraction = mFatFraction;
+        this.fatFraction = mFatFraction;
+    }
+
+    @Override
+    public String toString() {
+        return "Week " + weekNumber;
     }
 }

@@ -33,6 +33,10 @@ dependencies {
     compile 'com.squareup.dagger:dagger:1.2.0'
 }
 
+dependencies {
+    compile 'com.github.gabrielemariotti.cards:library:1.1.0'
+}
+
 repositories {
     mavenCentral()
 }

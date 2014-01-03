@@ -8,10 +8,14 @@ import android.widget.ListView;
 
 import com.squareup.otto.Bus;
 
+import java.sql.SQLException;
+import java.util.List;
+
 import javax.inject.Inject;
 
+import de.ubuntudroid.fitnesstracker.model.FitnessWeek;
+import de.ubuntudroid.fitnesstracker.model.helper.DatabaseHelper;
 import de.ubuntudroid.fitnesstracker.view.base.BaseListFragment;
-import de.ubuntudroid.fitnesstracker.dummy.DummyContent;
 import de.ubuntudroid.fitnesstracker.events.WeekSelectedEvent;
 
 /**
@@ -31,10 +35,19 @@ public class WeekListFragment extends BaseListFragment {
     @Inject
     Bus mEventBus;
 
+    // TODO replace direct database usage by abstraction (aka WeekModel)
+    @Inject
+    DatabaseHelper mDatabaseHelper;
+
     /**
      * The current activated item position. Only used on tablets.
      */
     private int mActivatedPosition = ListView.INVALID_POSITION;
+
+    /**
+     * A list of all fitness weeks. In most cases these objects will just have filled their weekNumber.
+     */
+    private List<FitnessWeek> fitnessWeeks;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -48,11 +61,18 @@ public class WeekListFragment extends BaseListFragment {
         super.onCreate(savedInstanceState);
 
         // TODO: replace with a real list adapter.
-        setListAdapter(new ArrayAdapter<DummyContent.DummyItem>(
+        // TODO: use job queue for this task and show loader in the meantime
+        try {
+            fitnessWeeks = mDatabaseHelper.getFitnessWeekDao().queryBuilder().selectColumns("weekNumber").query();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            getActivity().finish();
+        }
+        setListAdapter(new ArrayAdapter<>(
                 getActivity(),
                 android.R.layout.simple_list_item_activated_1,
                 android.R.id.text1,
-                DummyContent.ITEMS));
+                fitnessWeeks));
     }
 
     @Override
@@ -75,7 +95,7 @@ public class WeekListFragment extends BaseListFragment {
     public void onListItemClick(ListView listView, View view, int position, long id) {
         super.onListItemClick(listView, view, position, id);
 
-        mEventBus.post(new WeekSelectedEvent(DummyContent.ITEMS.get(position).id));
+        mEventBus.post(new WeekSelectedEvent(fitnessWeeks.get(position).getWeekNumber()));
     }
 
     @Override
