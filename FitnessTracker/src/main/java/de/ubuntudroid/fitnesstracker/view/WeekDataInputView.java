@@ -4,9 +4,11 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
+import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.TableLayout;
 import android.widget.TextView;
 
 import de.ubuntudroid.fitnesstracker.R;
@@ -38,7 +40,7 @@ public class WeekDataInputView extends RelativeLayout {
     }
 
     private void init(Context context, AttributeSet attrs) {
-        LinearLayout layout = (LinearLayout) LayoutInflater.from(context).inflate(R.layout.week_data_input, null);
+        ViewGroup layout = (ViewGroup) LayoutInflater.from(context).inflate(R.layout.week_data_input, null);
         addView(layout);
         desc = (TextView) layout.findViewById(R.id.label);
         input = (EditText) layout.findViewById(R.id.input);

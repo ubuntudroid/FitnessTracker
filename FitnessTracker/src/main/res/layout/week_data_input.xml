@@ -1,30 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="horizontal"
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:stretchColumns="1" >
 
-    <TextView
-        android:id="@+id/label"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="3"
-        android:gravity="center_vertical"/>
+    <TableRow>
 
-    <EditText
-        android:id="@+id/input"
-        style="?android:attr/textAppearanceLarge"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1" />
+        <TextView
+            android:id="@+id/label"
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:gravity="left"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"/>
 
-    <TextView
-        android:id="@+id/label_unit"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="3"
-        android:paddingLeft="2dp"
-        android:gravity="center_vertical" />
+        <EditText
+            android:id="@+id/input"
+            style="?android:attr/textAppearanceLarge"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="numberDecimal"/>
 
-</LinearLayout>
+        <TextView
+            android:id="@+id/label_unit"
+            android:layout_width="30dp"
+            android:layout_height="wrap_content"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:gravity="right" />
+
+    </TableRow>
+</TableLayout>
+

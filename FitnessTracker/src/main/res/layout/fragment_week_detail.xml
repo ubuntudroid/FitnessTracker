@@ -14,8 +14,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1"
+        android:gravity="center_vertical"
         app:desc="Weight"
-        app:hint="Type in your current weight here..."
+        app:hint="e.g. 127.8"
         app:unit="lbs"
         />
 
@@ -25,8 +26,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1"
+        android:gravity="center_vertical"
         app:desc="Muscle"
-        app:hint="Type in your muscle fraction here, e.g. 0.3..."
+        app:hint="e.g. 31.3"
         app:unit="%"
         />
 
@@ -36,8 +38,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1"
+        android:gravity="center_vertical"
         app:desc="Water"
-        app:hint="Type in your water fraction here, e.g. 0.3..."
+        app:hint="e.g. 49.2"
         app:unit="%"
         />
 
@@ -47,8 +50,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1"
+        android:gravity="center_vertical"
         app:desc="Fat"
-        app:hint="Type in your fat fraction here, e.g. 0.3..."
+        app:hint="e.g. 27.4"
         app:unit="%"
         />
 
