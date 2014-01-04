@@ -48,12 +48,12 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper{
 
             // TODO remove the following dummy data generation code
             // here we try inserting data in the on-create as a test
-            FitnessWeek simple = new FitnessWeek(1, 127.8f, 31.3f, 49.2f, 27.4f);
-            fitnessWeekDao.create(simple);
-            simple = new FitnessWeek(2, 127.2f, 31.1f, 50.1f, 27.0f);
-            fitnessWeekDao.create(simple);
-            simple = new FitnessWeek(3, 126.6f, 32.9f, 48.7f, 26.8f);
-            fitnessWeekDao.create(simple);
+//            FitnessWeek simple = new FitnessWeek(1, 127.8f, 31.3f, 49.2f, 27.4f);
+//            fitnessWeekDao.create(simple);
+//            simple = new FitnessWeek(2, 127.2f, 31.1f, 50.1f, 27.0f);
+//            fitnessWeekDao.create(simple);
+//            simple = new FitnessWeek(3, 126.6f, 32.9f, 48.7f, 26.8f);
+//            fitnessWeekDao.create(simple);
 //            simple = new FitnessWeek(4, -1, -1, -1, -1);
 //            fitnessWeekDao.create(simple);
         } catch (SQLException e) {

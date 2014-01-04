@@ -68,7 +68,11 @@ public class WeekListFragment extends BaseListFragment {
         try {
             fitnessWeeks = mDatabaseHelper.getFitnessWeekDao().queryBuilder().selectColumns("weekNumber").orderBy("weekNumber", false).query();
             // add new week at the top of the list
-            fitnessWeeks.add(0, new FitnessWeek(fitnessWeeks.get(0).getWeekNumber() + 1));
+            if (fitnessWeeks.size() > 0) {
+                fitnessWeeks.add(0, new FitnessWeek(fitnessWeeks.get(0).getWeekNumber() + 1));
+            } else {
+                fitnessWeeks.add(0, new FitnessWeek(1));
+            }
         } catch (SQLException e) {
             e.printStackTrace();
             getActivity().finish();
