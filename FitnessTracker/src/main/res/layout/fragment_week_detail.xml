@@ -21,6 +21,18 @@
         />
 
     <de.ubuntudroid.fitnesstracker.view.WeekDataInputView
+        android:id="@+id/fat_fraction_text"
+        style="?android:attr/textAppearanceLarge"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="center_vertical"
+        app:desc="Fat"
+        app:hint="e.g. 27.4"
+        app:unit="%"
+        />
+
+    <de.ubuntudroid.fitnesstracker.view.WeekDataInputView
         android:id="@+id/muscle_fraction_text"
         style="?android:attr/textAppearanceLarge"
         android:layout_width="match_parent"
@@ -41,18 +53,6 @@
         android:gravity="center_vertical"
         app:desc="Water"
         app:hint="e.g. 49.2"
-        app:unit="%"
-        />
-
-    <de.ubuntudroid.fitnesstracker.view.WeekDataInputView
-        android:id="@+id/fat_fraction_text"
-        style="?android:attr/textAppearanceLarge"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:gravity="center_vertical"
-        app:desc="Fat"
-        app:hint="e.g. 27.4"
         app:unit="%"
         />
 
