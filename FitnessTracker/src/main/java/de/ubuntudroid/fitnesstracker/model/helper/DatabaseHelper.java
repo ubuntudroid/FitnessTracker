@@ -54,8 +54,8 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper{
             fitnessWeekDao.create(simple);
             simple = new FitnessWeek(3, 126.6f, 32.9f, 48.7f, 26.8f);
             fitnessWeekDao.create(simple);
-            simple = new FitnessWeek(4, -1, -1, -1, -1);
-            fitnessWeekDao.create(simple);
+//            simple = new FitnessWeek(4, -1, -1, -1, -1);
+//            fitnessWeekDao.create(simple);
         } catch (SQLException e) {
             Log.e(DatabaseHelper.class.getName(), "Can't create database", e);
             throw new RuntimeException(e);

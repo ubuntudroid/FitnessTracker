@@ -66,7 +66,7 @@ public class WeekListActivity extends BaseFragmentActivity {
     }
 
     @Subscribe
-    public void itemSelected(WeekSelectedEvent event) {
+    public void weekSelected(WeekSelectedEvent event) {
         if (mTwoPane) {
             // In two-pane mode, show the detail view in this activity by
             // adding or replacing the detail fragment using a

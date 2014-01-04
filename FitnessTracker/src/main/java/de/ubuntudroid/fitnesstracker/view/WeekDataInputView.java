@@ -20,6 +20,8 @@ public class WeekDataInputView extends RelativeLayout {
     private EditText input;
     private TextView unit;
 
+    // TODO allow for setting of text validator
+
     public WeekDataInputView(Context context) {
         super(context);
         init(context, null);
@@ -83,6 +85,14 @@ public class WeekDataInputView extends RelativeLayout {
             input.setText(text);
             invalidate();
             requestLayout();
+        }
+    }
+
+    public String getText() {
+        if (input != null) {
+            return input.getText().toString().trim();
+        } else {
+            return "";
         }
     }
 

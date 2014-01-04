@@ -7,12 +7,14 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.squareup.otto.Bus;
+import com.squareup.otto.Subscribe;
 
 import java.sql.SQLException;
 import java.util.List;
 
 import javax.inject.Inject;
 
+import de.ubuntudroid.fitnesstracker.events.WeekChangedEvent;
 import de.ubuntudroid.fitnesstracker.model.FitnessWeek;
 import de.ubuntudroid.fitnesstracker.model.helper.DatabaseHelper;
 import de.ubuntudroid.fitnesstracker.view.base.BaseListFragment;
@@ -48,6 +50,7 @@ public class WeekListFragment extends BaseListFragment {
      * A list of all fitness weeks. In most cases these objects will just have filled their weekNumber.
      */
     private List<FitnessWeek> fitnessWeeks;
+    private ArrayAdapter<FitnessWeek> listAdapter;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -63,16 +66,21 @@ public class WeekListFragment extends BaseListFragment {
         // TODO: replace with a real list adapter.
         // TODO: use job queue for this task and show loader in the meantime
         try {
-            fitnessWeeks = mDatabaseHelper.getFitnessWeekDao().queryBuilder().selectColumns("weekNumber").query();
+            fitnessWeeks = mDatabaseHelper.getFitnessWeekDao().queryBuilder().selectColumns("weekNumber").orderBy("weekNumber", false).query();
+            // add new week at the top of the list
+            fitnessWeeks.add(0, new FitnessWeek(fitnessWeeks.get(0).getWeekNumber() + 1));
         } catch (SQLException e) {
             e.printStackTrace();
             getActivity().finish();
         }
-        setListAdapter(new ArrayAdapter<>(
+        listAdapter = new ArrayAdapter<>(
                 getActivity(),
                 android.R.layout.simple_list_item_activated_1,
                 android.R.id.text1,
-                fitnessWeeks));
+                fitnessWeeks);
+        setListAdapter(listAdapter);
+
+        mEventBus.register(this);
     }
 
     @Override
@@ -92,10 +100,9 @@ public class WeekListFragment extends BaseListFragment {
     }
 
     @Override
-    public void onListItemClick(ListView listView, View view, int position, long id) {
-        super.onListItemClick(listView, view, position, id);
-
-        mEventBus.post(new WeekSelectedEvent(fitnessWeeks.get(position).getWeekNumber()));
+    public void onDestroy() {
+        mEventBus.unregister(this);
+        super.onDestroy();
     }
 
     @Override
@@ -105,6 +112,23 @@ public class WeekListFragment extends BaseListFragment {
             // Serialize and persist the activated item position.
             outState.putInt(STATE_ACTIVATED_POSITION, mActivatedPosition);
         }
+    }
+
+    @Subscribe
+    public void weekChanged(WeekChangedEvent event) {
+        FitnessWeek week = fitnessWeeks.get(0);
+        if (week.getWeekNumber() == event.getWeekId()) {
+            // the last week was filled by the user, add a new one automatically
+            listAdapter.insert(new FitnessWeek(week.getWeekNumber() + 1), 0);
+            setActivatedPosition(1);
+        }
+    }
+
+    @Override
+    public void onListItemClick(ListView listView, View view, int position, long id) {
+        super.onListItemClick(listView, view, position, id);
+
+        mEventBus.post(new WeekSelectedEvent(fitnessWeeks.get(position).getWeekNumber()));
     }
 
     /**
