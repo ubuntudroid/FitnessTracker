@@ -1,4 +1,4 @@
-package de.ubuntudroid.fitnesstracker.view;
+package de.ubuntudroid.fitnesstracker.view.views;
 
 import android.content.Context;
 import android.content.res.TypedArray;

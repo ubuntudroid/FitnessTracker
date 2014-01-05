@@ -13,11 +13,7 @@ public class BaseFragment extends Fragment {
     @Override public void onAttach(Activity activity) {
         super.onAttach(activity);
 
-        /*
-         * TODO maybe we can replace this ugly workaround by an injection from AndroidModule?
-         * However we shouln't store the application context in the fragment, can we instead just
-         * inject a variable?
-         */
-        ((FitnessTrackerApplication) activity.getApplication()).inject(this);
+        // Perform injection so that when this call returns all dependencies will be available for use.
+        FitnessTrackerApplication.getInstance().inject(this);
     }
 }

@@ -1,20 +1,18 @@
 package de.ubuntudroid.fitnesstracker.events;
 
+import de.ubuntudroid.fitnesstracker.model.FitnessWeek;
+
 /**
  * Created by ubuntudroid on 04/01/14.
  */
 public class WeekChangedEvent {
-    private int mWeekId;
+    private FitnessWeek mWeek;
 
-    public WeekChangedEvent(int weekId) {
-        this.mWeekId = weekId;
+    public WeekChangedEvent(FitnessWeek week) {
+        this.mWeek = week;
     }
 
-    public int getWeekId() {
-        return mWeekId;
-    }
-
-    public void setWeekId(int mWeekId) {
-        this.mWeekId = mWeekId;
+    public FitnessWeek getWeek() {
+        return mWeek;
     }
 }

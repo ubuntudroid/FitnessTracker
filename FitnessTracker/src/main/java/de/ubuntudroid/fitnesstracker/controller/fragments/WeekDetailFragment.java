@@ -1,4 +1,4 @@
-package de.ubuntudroid.fitnesstracker;
+package de.ubuntudroid.fitnesstracker.controller.fragments;
 
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -8,23 +8,26 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 
 import com.squareup.otto.Bus;
+import com.squareup.otto.Subscribe;
 
-import java.sql.SQLException;
+import java.util.List;
 
 import javax.inject.Inject;
 
-import de.ubuntudroid.fitnesstracker.events.WeekChangedEvent;
+import de.ubuntudroid.fitnesstracker.R;
+import de.ubuntudroid.fitnesstracker.events.ModelInvalidatedEvent;
 import de.ubuntudroid.fitnesstracker.model.FitnessWeek;
-import de.ubuntudroid.fitnesstracker.model.helper.DatabaseHelper;
-import de.ubuntudroid.fitnesstracker.view.WeekDataInputView;
+import de.ubuntudroid.fitnesstracker.controller.FitnessWeekController;
 import de.ubuntudroid.fitnesstracker.view.base.BaseFragment;
+import de.ubuntudroid.fitnesstracker.view.views.WeekDataInputView;
 
 /**
  * A fragment representing a single Week detail screen.
- * This fragment is either contained in a {@link WeekListActivity}
- * in two-pane mode (on tablets) or a {@link WeekDetailActivity}
+ * This fragment is either contained in a {@link de.ubuntudroid.fitnesstracker.controller.activities.WeekListActivity}
+ * in two-pane mode (on tablets) or a {@link de.ubuntudroid.fitnesstracker.controller.activities.WeekDetailActivity}
  * on handsets.
  */
 public class WeekDetailFragment extends BaseFragment {
@@ -34,19 +37,21 @@ public class WeekDetailFragment extends BaseFragment {
      */
     public static final String ARG_ITEM_ID = "item_id";
 
-    // TODO replace direct database usage by abstraction (aka WeekModel)
     private FitnessWeek week;
 
     @Inject
-    DatabaseHelper mDatabaseHelper;
+    Bus mEventBus;
 
     @Inject
-    Bus mEventBus;
+    FitnessWeekController mFitnessWeekController;
 
     private WeekDataInputView weightView;
     private WeekDataInputView muscleView;
     private WeekDataInputView waterView;
     private WeekDataInputView fatView;
+
+    private boolean isRefreshing = false;
+    private ProgressBar refreshProgressBar;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -60,16 +65,14 @@ public class WeekDetailFragment extends BaseFragment {
         super.onCreate(savedInstanceState);
 
         setHasOptionsMenu(true);
+        mEventBus.register(this);
 
         if (getArguments().containsKey(ARG_ITEM_ID)) {
-            // TODO use the JobQueue to load the data from DB
-            try {
-                week = mDatabaseHelper.getFitnessWeekDao().queryBuilder().where().idEq(getArguments().getInt(ARG_ITEM_ID)).queryForFirst();
-                if (week == null) {
-                    week = new FitnessWeek(getArguments().getInt(ARG_ITEM_ID));
-                }
-            } catch (SQLException e) {
-                e.printStackTrace();
+            List<FitnessWeek> fitnessWeeks = mFitnessWeekController.getFitnessWeeks();
+            if (fitnessWeeks != null) {
+                week = fitnessWeeks.get(mFitnessWeekController.getPositionForWeekNumber(getArguments().getInt(ARG_ITEM_ID)));
+            } else {
+                isRefreshing = true;
             }
         }
     }
@@ -82,11 +85,21 @@ public class WeekDetailFragment extends BaseFragment {
         muscleView = (WeekDataInputView) rootView.findViewById(R.id.muscle_fraction_text);
         waterView = (WeekDataInputView) rootView.findViewById(R.id.water_fraction_text);
         fatView = (WeekDataInputView) rootView.findViewById(R.id.fat_fraction_text);
+        refreshProgressBar = (ProgressBar) rootView.findViewById(R.id.refresh_progress);
 
-        // Show the dummy content as text in a TextView.
-        updateGui();
+        if (isRefreshing) {
+            refreshProgressBar.setVisibility(View.VISIBLE);
+        } else {
+            updateGui();
+        }
 
         return rootView;
+    }
+
+    @Override
+    public void onDestroy() {
+        mEventBus.unregister(this);
+        super.onDestroy();
     }
 
     @Override
@@ -108,6 +121,21 @@ public class WeekDetailFragment extends BaseFragment {
                 return super.onOptionsItemSelected(item);
         }
         return true;
+    }
+
+    @Subscribe
+    public void onModelInvalidatedEvent(ModelInvalidatedEvent event) {
+        List<FitnessWeek> fitnessWeeks = mFitnessWeekController.getFitnessWeeks();
+        if (fitnessWeeks != null) {
+            this.week = fitnessWeeks.get(getArguments().getInt(ARG_ITEM_ID) - 1);
+            updateGui();
+            if (refreshProgressBar != null) {
+                refreshProgressBar.setVisibility(View.GONE);
+            }
+            isRefreshing = false;
+        } else {
+            // There seems to be some error with the DB, notify the user
+        }
     }
 
     private void updateGui() {
@@ -180,13 +208,7 @@ public class WeekDetailFragment extends BaseFragment {
             }
         }
 
-        try {
-            mDatabaseHelper.getFitnessWeekDao().createOrUpdate(week);
-            mEventBus.post(new WeekChangedEvent(week.getWeekNumber()));
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return false;
-        }
+        mFitnessWeekController.addWeek(week);
         return true;
     }
 

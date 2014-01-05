@@ -8,7 +8,7 @@
     android:divider="?android:attr/dividerHorizontal"
     android:orientation="horizontal"
     android:showDividers="middle"
-    tools:context="de.ubuntudroid.fitnesstracker.WeekListActivity">
+    tools:context="de.ubuntudroid.fitnesstracker.controller.activities.WeekListActivity">
 
     <!--
     This layout is a two-pane layout for the Weeks
@@ -23,7 +23,7 @@
 
     <fragment
         android:id="@+id/week_list"
-        android:name="de.ubuntudroid.fitnesstracker.WeekListFragment"
+        android:name="de.ubuntudroid.fitnesstracker.controller.fragments.WeekListFragment"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1"

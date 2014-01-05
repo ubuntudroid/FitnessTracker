@@ -1,4 +1,4 @@
-package de.ubuntudroid.fitnesstracker;
+package de.ubuntudroid.fitnesstracker.controller.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,6 +8,9 @@ import com.squareup.otto.Subscribe;
 
 import javax.inject.Inject;
 
+import de.ubuntudroid.fitnesstracker.R;
+import de.ubuntudroid.fitnesstracker.controller.fragments.WeekDetailFragment;
+import de.ubuntudroid.fitnesstracker.controller.fragments.WeekListFragment;
 import de.ubuntudroid.fitnesstracker.view.base.BaseFragmentActivity;
 import de.ubuntudroid.fitnesstracker.events.WeekSelectedEvent;
 
@@ -21,8 +24,8 @@ import de.ubuntudroid.fitnesstracker.events.WeekSelectedEvent;
  * item details side-by-side using two vertical panes.
  * <p>
  * The activity makes heavy use of fragments. The list of items is a
- * {@link WeekListFragment} and the item details
- * (if present) is a {@link WeekDetailFragment}.
+ * {@link de.ubuntudroid.fitnesstracker.controller.fragments.WeekListFragment} and the item details
+ * (if present) is a {@link de.ubuntudroid.fitnesstracker.controller.fragments.WeekDetailFragment}.
  */
 public class WeekListActivity extends BaseFragmentActivity {
 

@@ -1,61 +1,78 @@
-<LinearLayout
+<FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context="de.ubuntudroid.fitnesstracker.controller.fragments.WeekDetailFragment"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="de.ubuntudroid.fitnesstracker.WeekDetailFragment"
-    android:padding="16dp"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
 
-    <de.ubuntudroid.fitnesstracker.view.WeekDataInputView
-        android:id="@+id/weight_text"
-        style="?android:attr/textAppearanceLarge"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:gravity="center_vertical"
-        app:desc="Weight"
-        app:hint="e.g. 127.8"
-        app:unit="lbs"
-        />
+        android:padding="16dp"
+        android:orientation="vertical">
 
-    <de.ubuntudroid.fitnesstracker.view.WeekDataInputView
-        android:id="@+id/fat_fraction_text"
-        style="?android:attr/textAppearanceLarge"
+        <de.ubuntudroid.fitnesstracker.view.views.WeekDataInputView
+            android:id="@+id/weight_text"
+            style="?android:attr/textAppearanceLarge"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            app:desc="Weight"
+            app:hint="e.g. 127.8"
+            app:unit="lbs"
+            />
+
+        <de.ubuntudroid.fitnesstracker.view.views.WeekDataInputView
+            android:id="@+id/fat_fraction_text"
+            style="?android:attr/textAppearanceLarge"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            app:desc="Fat"
+            app:hint="e.g. 27.4"
+            app:unit="%"
+            />
+
+        <de.ubuntudroid.fitnesstracker.view.views.WeekDataInputView
+            android:id="@+id/muscle_fraction_text"
+            style="?android:attr/textAppearanceLarge"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            app:desc="Muscle"
+            app:hint="e.g. 31.3"
+            app:unit="%"
+            />
+
+        <de.ubuntudroid.fitnesstracker.view.views.WeekDataInputView
+            android:id="@+id/water_fraction_text"
+            style="?android:attr/textAppearanceLarge"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            app:desc="Water"
+            app:hint="e.g. 49.2"
+            app:unit="%"
+            />
+
+    </LinearLayout>
+
+    <ProgressBar
+        android:id="@+id/refresh_progress"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:gravity="center_vertical"
-        app:desc="Fat"
-        app:hint="e.g. 27.4"
-        app:unit="%"
-        />
+        android:layout_gravity="center"
+        android:visibility="gone"
+        android:clickable="true"/>
 
-    <de.ubuntudroid.fitnesstracker.view.WeekDataInputView
-        android:id="@+id/muscle_fraction_text"
-        style="?android:attr/textAppearanceLarge"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:gravity="center_vertical"
-        app:desc="Muscle"
-        app:hint="e.g. 31.3"
-        app:unit="%"
-        />
+</FrameLayout>
 
-    <de.ubuntudroid.fitnesstracker.view.WeekDataInputView
-        android:id="@+id/water_fraction_text"
-        style="?android:attr/textAppearanceLarge"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:gravity="center_vertical"
-        app:desc="Water"
-        app:hint="e.g. 49.2"
-        app:unit="%"
-        />
 
-</LinearLayout>
+
 
 

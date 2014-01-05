@@ -3,5 +3,5 @@
     android:id="@+id/week_detail_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="de.ubuntudroid.fitnesstracker.WeekDetailActivity"
+    tools:context="de.ubuntudroid.fitnesstracker.controller.activities.WeekDetailActivity"
     tools:ignore="MergeRootFrame" />

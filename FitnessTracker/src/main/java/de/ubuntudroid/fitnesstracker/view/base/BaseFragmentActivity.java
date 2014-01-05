@@ -15,7 +15,7 @@ public class BaseFragmentActivity extends FragmentActivity {
         super.onCreate(savedInstanceState);
 
         // Perform injection so that when this call returns all dependencies will be available for use.
-        ((FitnessTrackerApplication) getApplication()).inject(this);
+        FitnessTrackerApplication.getInstance().inject(this);
     }
 
 }

@@ -1,7 +1,10 @@
-package de.ubuntudroid.fitnesstracker;
+package de.ubuntudroid.fitnesstracker.controller.fragments;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -9,14 +12,17 @@ import android.widget.ListView;
 import com.squareup.otto.Bus;
 import com.squareup.otto.Subscribe;
 
-import java.sql.SQLException;
 import java.util.List;
 
 import javax.inject.Inject;
 
+import de.ubuntudroid.fitnesstracker.R;
+import de.ubuntudroid.fitnesstracker.controller.FitnessWeekListAdapter;
+import de.ubuntudroid.fitnesstracker.events.ModelInvalidatedEvent;
+import de.ubuntudroid.fitnesstracker.events.WeekAddedEvent;
 import de.ubuntudroid.fitnesstracker.events.WeekChangedEvent;
 import de.ubuntudroid.fitnesstracker.model.FitnessWeek;
-import de.ubuntudroid.fitnesstracker.model.helper.DatabaseHelper;
+import de.ubuntudroid.fitnesstracker.controller.FitnessWeekController;
 import de.ubuntudroid.fitnesstracker.view.base.BaseListFragment;
 import de.ubuntudroid.fitnesstracker.events.WeekSelectedEvent;
 
@@ -37,9 +43,8 @@ public class WeekListFragment extends BaseListFragment {
     @Inject
     Bus mEventBus;
 
-    // TODO replace direct database usage by abstraction (aka WeekModel)
     @Inject
-    DatabaseHelper mDatabaseHelper;
+    FitnessWeekController mFitnessWeekController;
 
     /**
      * The current activated item position. Only used on tablets.
@@ -47,9 +52,9 @@ public class WeekListFragment extends BaseListFragment {
     private int mActivatedPosition = ListView.INVALID_POSITION;
 
     /**
-     * A list of all fitness weeks. In most cases these objects will just have filled their weekNumber.
+     * A list of all fitness weeks.
      */
-    private List<FitnessWeek> fitnessWeeks;
+    private List<FitnessWeek> mFitnessWeeks;
     private ArrayAdapter<FitnessWeek> listAdapter;
 
     /**
@@ -63,28 +68,20 @@ public class WeekListFragment extends BaseListFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        setHasOptionsMenu(true);
+        mEventBus.register(this);
+
         // TODO: replace with a real list adapter.
         // TODO: use job queue for this task and show loader in the meantime
-        try {
-            fitnessWeeks = mDatabaseHelper.getFitnessWeekDao().queryBuilder().selectColumns("weekNumber").orderBy("weekNumber", false).query();
-            // add new week at the top of the list
-            if (fitnessWeeks.size() > 0) {
-                fitnessWeeks.add(0, new FitnessWeek(fitnessWeeks.get(0).getWeekNumber() + 1));
-            } else {
-                fitnessWeeks.add(0, new FitnessWeek(1));
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-            getActivity().finish();
+        mFitnessWeeks = mFitnessWeekController.getFitnessWeeks();
+        if (mFitnessWeeks != null) {
+            listAdapter = new FitnessWeekListAdapter(
+                    getActivity(),
+                    android.R.layout.simple_list_item_activated_2,
+                    android.R.id.text1,
+                    mFitnessWeeks);
+            setListAdapter(listAdapter);
         }
-        listAdapter = new ArrayAdapter<>(
-                getActivity(),
-                android.R.layout.simple_list_item_activated_1,
-                android.R.id.text1,
-                fitnessWeeks);
-        setListAdapter(listAdapter);
-
-        mEventBus.register(this);
     }
 
     @Override
@@ -118,21 +115,76 @@ public class WeekListFragment extends BaseListFragment {
         }
     }
 
-    @Subscribe
-    public void weekChanged(WeekChangedEvent event) {
-        FitnessWeek week = fitnessWeeks.get(0);
-        if (week.getWeekNumber() == event.getWeekId()) {
-            // the last week was filled by the user, add a new one automatically
-            listAdapter.insert(new FitnessWeek(week.getWeekNumber() + 1), 0);
-            setActivatedPosition(1);
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.week_list_fragment_menu, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.add_menu_item:
+                if (mFitnessWeeks.size() > 0) {
+                    mFitnessWeekController.addWeek(new FitnessWeek(mFitnessWeeks.get(0).getWeekNumber() + 1));
+                } else {
+                    mFitnessWeekController.addWeek(new FitnessWeek(1));
+                }
+                break;
+            default:
+                return super.onOptionsItemSelected(item);
         }
+        return true;
+    }
+
+    @Subscribe
+    public void onWeekChanged(WeekChangedEvent event) {
+        if (listAdapter != null) {
+//            FitnessWeek changedWeek = event.getWeek();
+//            for (int i = 0; i < mFitnessWeeks.size(); i++) {
+//                FitnessWeek week = mFitnessWeeks.get(i);
+//                if (week.getWeekNumber() == changedWeek.getWeekNumber()) {
+//                    // replace changed week (we want this to be atomic, so we notify the adapter of the change ourselves)
+//                    listAdapter.setNotifyOnChange(false);
+//                    listAdapter.remove(week);
+//                    listAdapter.insert(changedWeek, i);
+//                    listAdapter.notifyDataSetChanged();
+//                }
+//            }
+            listAdapter.notifyDataSetChanged();
+        }
+    }
+
+    @Subscribe
+    public void onWeekAdded(WeekAddedEvent event) {
+        if (listAdapter != null) {
+            listAdapter.notifyDataSetChanged();
+            if (mActivatedPosition >= mFitnessWeekController.getPositionForWeekNumber(event.getWeek().getWeekNumber())) {
+                setActivatedPosition(mActivatedPosition + 1);
+            }
+        }
+    }
+
+    @Subscribe
+    public void onModelInvalidated(ModelInvalidatedEvent event) {
+        mFitnessWeeks = mFitnessWeekController.getFitnessWeeks();
+        if (listAdapter != null) {
+            listAdapter.notifyDataSetInvalidated();
+        }
+        listAdapter = new FitnessWeekListAdapter(
+                getActivity(),
+                android.R.layout.simple_list_item_activated_2,
+                android.R.id.text1,
+                mFitnessWeeks);
+        setListAdapter(listAdapter);
     }
 
     @Override
     public void onListItemClick(ListView listView, View view, int position, long id) {
         super.onListItemClick(listView, view, position, id);
+        mActivatedPosition = position;
 
-        mEventBus.post(new WeekSelectedEvent(fitnessWeeks.get(position).getWeekNumber()));
+        mEventBus.post(new WeekSelectedEvent(mFitnessWeeks.get(position).getWeekNumber()));
     }
 
     /**

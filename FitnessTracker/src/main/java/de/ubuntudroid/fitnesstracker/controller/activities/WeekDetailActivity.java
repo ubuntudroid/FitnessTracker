@@ -1,10 +1,12 @@
-package de.ubuntudroid.fitnesstracker;
+package de.ubuntudroid.fitnesstracker.controller.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.view.MenuItem;
 
+import de.ubuntudroid.fitnesstracker.R;
+import de.ubuntudroid.fitnesstracker.controller.fragments.WeekDetailFragment;
 import de.ubuntudroid.fitnesstracker.view.base.BaseFragmentActivity;
 
 /**
@@ -14,7 +16,7 @@ import de.ubuntudroid.fitnesstracker.view.base.BaseFragmentActivity;
  * in a {@link WeekListActivity}.
  * <p>
  * This activity is mostly just a 'shell' activity containing nothing
- * more than a {@link WeekDetailFragment}.
+ * more than a {@link de.ubuntudroid.fitnesstracker.controller.fragments.WeekDetailFragment}.
  */
 public class WeekDetailActivity extends BaseFragmentActivity {
 

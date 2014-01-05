@@ -79,6 +79,10 @@ public class FitnessWeek {
         this.fatFraction = mFatFraction;
     }
 
+    public boolean isDummy () {
+        return weight == -1 && muscleFraction == -1 && waterFraction == -1 && fatFraction == -1;
+    }
+
     @Override
     public String toString() {
         return "Week " + weekNumber;
