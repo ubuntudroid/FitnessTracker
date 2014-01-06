@@ -2,12 +2,12 @@ package de.ubuntudroid.fitnesstracker.controller.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.NavUtils;
 import android.view.MenuItem;
 
 import de.ubuntudroid.fitnesstracker.R;
 import de.ubuntudroid.fitnesstracker.controller.fragments.WeekDetailFragment;
-import de.ubuntudroid.fitnesstracker.view.base.BaseFragmentActivity;
 
 /**
  * An activity representing a single Week detail screen. This
@@ -18,7 +18,7 @@ import de.ubuntudroid.fitnesstracker.view.base.BaseFragmentActivity;
  * This activity is mostly just a 'shell' activity containing nothing
  * more than a {@link de.ubuntudroid.fitnesstracker.controller.fragments.WeekDetailFragment}.
  */
-public class WeekDetailActivity extends BaseFragmentActivity {
+public class WeekDetailActivity extends FragmentActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
