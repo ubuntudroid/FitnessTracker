@@ -173,8 +173,8 @@ public class WeekListFragment extends BaseListFragment {
         }
         listAdapter = new FitnessWeekListAdapter(
                 getActivity(),
-                android.R.layout.simple_list_item_activated_2,
-                android.R.id.text1,
+                R.layout.week_list_item,
+                R.id.week_name,
                 mFitnessWeeks);
         setListAdapter(listAdapter);
     }
