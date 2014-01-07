@@ -30,7 +30,7 @@ public class FitnessTrackerApplication extends Application{
         mObjectGraph = ObjectGraph.create(getModules().toArray());
     }
 
-    protected List<Object> getModules() {
+    private List<Object> getModules() {
         return Arrays.asList(
                 new AndroidModule(this),
                 new GeneralModule(),

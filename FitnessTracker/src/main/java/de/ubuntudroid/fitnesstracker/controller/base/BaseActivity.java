@@ -1,14 +1,16 @@
-package de.ubuntudroid.fitnesstracker.view.base;
+package de.ubuntudroid.fitnesstracker.controller.base;
 
+import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
 
 import de.ubuntudroid.fitnesstracker.FitnessTrackerApplication;
 
 /**
  * Created by ubuntudroid on 02/01/14.
  */
-public class BaseFragmentActivity extends FragmentActivity {
+@SuppressLint("Registered")
+public class BaseActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -3,6 +3,9 @@ package de.ubuntudroid.fitnesstracker.model;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
+import de.ubuntudroid.fitnesstracker.FitnessTrackerApplication;
+import de.ubuntudroid.fitnesstracker.R;
+
 /**
  * Created by ubuntudroid on 02/01/14.
  */
@@ -85,6 +88,11 @@ public class FitnessWeek {
 
     @Override
     public String toString() {
-        return "Week " + weekNumber;
+        /*
+         * We don't use context injection on purpose here for two reasons:
+         *  - FitnessWeek is a class strongly tied to the app and there is no abstraction gain
+         *  - FitnessWeek is a database representation object and needs quick initialization
+         */
+        return FitnessTrackerApplication.getInstance().getString(R.string.week) + " " + weekNumber;
     }
 }

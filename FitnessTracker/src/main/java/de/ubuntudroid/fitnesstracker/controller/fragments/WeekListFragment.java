@@ -1,6 +1,5 @@
 package de.ubuntudroid.fitnesstracker.controller.fragments;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -17,14 +16,14 @@ import java.util.List;
 import javax.inject.Inject;
 
 import de.ubuntudroid.fitnesstracker.R;
+import de.ubuntudroid.fitnesstracker.controller.FitnessWeekController;
 import de.ubuntudroid.fitnesstracker.controller.FitnessWeekListAdapter;
+import de.ubuntudroid.fitnesstracker.controller.base.BaseListFragment;
 import de.ubuntudroid.fitnesstracker.events.ModelInvalidatedEvent;
 import de.ubuntudroid.fitnesstracker.events.WeekAddedEvent;
 import de.ubuntudroid.fitnesstracker.events.WeekChangedEvent;
-import de.ubuntudroid.fitnesstracker.model.FitnessWeek;
-import de.ubuntudroid.fitnesstracker.controller.FitnessWeekController;
-import de.ubuntudroid.fitnesstracker.view.base.BaseListFragment;
 import de.ubuntudroid.fitnesstracker.events.WeekSelectedEvent;
+import de.ubuntudroid.fitnesstracker.model.FitnessWeek;
 
 /**
  * A list fragment representing a list of Weeks. This fragment
@@ -93,11 +92,6 @@ public class WeekListFragment extends BaseListFragment {
                 && savedInstanceState.containsKey(STATE_ACTIVATED_POSITION)) {
             setActivatedPosition(savedInstanceState.getInt(STATE_ACTIVATED_POSITION));
         }
-    }
-
-    @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
     }
 
     @Override

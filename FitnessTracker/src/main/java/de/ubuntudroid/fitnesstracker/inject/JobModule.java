@@ -3,15 +3,11 @@ package de.ubuntudroid.fitnesstracker.inject;
 import android.content.Context;
 
 import com.j256.ormlite.android.apptools.OpenHelperManager;
-import com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper;
 
 import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
-import de.ubuntudroid.fitnesstracker.controller.activities.WeekDetailActivity;
-import de.ubuntudroid.fitnesstracker.controller.activities.WeekListActivity;
-import de.ubuntudroid.fitnesstracker.controller.fragments.WeekListFragment;
 import de.ubuntudroid.fitnesstracker.inject.annotation.ForApplication;
 import de.ubuntudroid.fitnesstracker.jobs.GetAllWeeksJob;
 import de.ubuntudroid.fitnesstracker.jobs.GetWeekJob;

@@ -3,5 +3,15 @@
 
     <string name="app_name">FitnessTracker</string>
     <string name="title_week_detail">Week Detail</string>
+    <string name="label_week_item_subtext_fat">Fat</string>
+    <string name="label_week_item_subtext_muscle">Muscle</string>
+    <string name="label_week_item_subtext_water">Water</string>
+    <string name="week">Week</string>
+    <string name="week_detail_fragment_menu_item_save">Save</string>
+    <string name="week_fragment_menu_item_add">Add</string>
+    <string name="week_data_input_weight">Weight</string>
+    <string name="week_data_input_fat">Fat</string>
+    <string name="week_data_input_muscle">Muscle</string>
+    <string name="week_data_input_water">Water</string>
 
 </resources>

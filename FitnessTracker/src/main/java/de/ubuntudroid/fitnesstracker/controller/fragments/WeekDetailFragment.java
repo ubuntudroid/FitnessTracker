@@ -18,10 +18,10 @@ import java.util.List;
 import javax.inject.Inject;
 
 import de.ubuntudroid.fitnesstracker.R;
+import de.ubuntudroid.fitnesstracker.controller.FitnessWeekController;
+import de.ubuntudroid.fitnesstracker.controller.base.BaseFragment;
 import de.ubuntudroid.fitnesstracker.events.ModelInvalidatedEvent;
 import de.ubuntudroid.fitnesstracker.model.FitnessWeek;
-import de.ubuntudroid.fitnesstracker.controller.FitnessWeekController;
-import de.ubuntudroid.fitnesstracker.view.base.BaseFragment;
 import de.ubuntudroid.fitnesstracker.view.views.WeekDataInputView;
 
 /**
@@ -81,18 +81,19 @@ public class WeekDetailFragment extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_week_detail, container, false);
-        weightView = (WeekDataInputView) rootView.findViewById(R.id.weight_text);
-        muscleView = (WeekDataInputView) rootView.findViewById(R.id.muscle_fraction_text);
-        waterView = (WeekDataInputView) rootView.findViewById(R.id.water_fraction_text);
-        fatView = (WeekDataInputView) rootView.findViewById(R.id.fat_fraction_text);
-        refreshProgressBar = (ProgressBar) rootView.findViewById(R.id.refresh_progress);
+        if (rootView != null) {
+            weightView = (WeekDataInputView) rootView.findViewById(R.id.weight_text);
+            muscleView = (WeekDataInputView) rootView.findViewById(R.id.muscle_fraction_text);
+            waterView = (WeekDataInputView) rootView.findViewById(R.id.water_fraction_text);
+            fatView = (WeekDataInputView) rootView.findViewById(R.id.fat_fraction_text);
+            refreshProgressBar = (ProgressBar) rootView.findViewById(R.id.refresh_progress);
 
-        if (isRefreshing) {
-            refreshProgressBar.setVisibility(View.VISIBLE);
-        } else {
-            updateGui();
+            if (isRefreshing) {
+                refreshProgressBar.setVisibility(View.VISIBLE);
+            } else {
+                updateGui();
+            }
         }
-
         return rootView;
     }
 
@@ -113,10 +114,9 @@ public class WeekDetailFragment extends BaseFragment {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.save_menu_item:
-                if (persistInputs()) {
-                    updateGui();
-                    break;
-                }
+                persistInputs();
+                updateGui();
+                break;
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -134,7 +134,7 @@ public class WeekDetailFragment extends BaseFragment {
             }
             isRefreshing = false;
         } else {
-            // There seems to be some error with the DB, notify the user
+            // TODO There seems to be some error with the DB, notify the user
         }
     }
 
@@ -162,7 +162,7 @@ public class WeekDetailFragment extends BaseFragment {
         }
     }
 
-    private boolean persistInputs() {
+    private void persistInputs() {
         if (weightView != null) {
             String weightText = weightView.getText();
             if (!TextUtils.isEmpty(weightText)) {
@@ -171,6 +171,7 @@ public class WeekDetailFragment extends BaseFragment {
                     week.setWeight(weight);
                 } catch (NumberFormatException ex) {
                     ex.printStackTrace();
+                    week.setWeight(-1);
                 }
             }
         }
@@ -182,6 +183,7 @@ public class WeekDetailFragment extends BaseFragment {
                     week.setMuscleFraction(muscleFraction);
                 } catch (NumberFormatException ex) {
                     ex.printStackTrace();
+                    week.setMuscleFraction(-1);
                 }
             }
         }
@@ -193,6 +195,7 @@ public class WeekDetailFragment extends BaseFragment {
                     week.setWaterFraction(waterFraction);
                 } catch (NumberFormatException ex) {
                     ex.printStackTrace();
+                    week.setWaterFraction(-1);
                 }
             }
         }
@@ -204,12 +207,12 @@ public class WeekDetailFragment extends BaseFragment {
                     week.setFatFraction(fatFraction);
                 } catch (NumberFormatException ex) {
                     ex.printStackTrace();
+                    week.setFatFraction(-1);
                 }
             }
         }
 
         mFitnessWeekController.addWeek(week);
-        return true;
     }
 
 

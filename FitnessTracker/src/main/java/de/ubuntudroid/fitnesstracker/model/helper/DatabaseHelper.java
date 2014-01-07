@@ -11,10 +11,6 @@ import com.j256.ormlite.table.TableUtils;
 
 import java.sql.SQLException;
 
-import javax.inject.Inject;
-import javax.inject.Singleton;
-
-import de.ubuntudroid.fitnesstracker.inject.annotation.ForApplication;
 import de.ubuntudroid.fitnesstracker.model.FitnessWeek;
 
 /**
@@ -31,7 +27,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper{
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
-    Dao<FitnessWeek, Integer> fitnessWeekDao;
+    private Dao<FitnessWeek, Integer> fitnessWeekDao;
 
     /**
      * This is called when the database is first created. Usually you should call createTable statements here to create

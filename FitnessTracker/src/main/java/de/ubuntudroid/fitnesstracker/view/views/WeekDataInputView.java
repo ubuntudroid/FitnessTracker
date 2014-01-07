@@ -6,9 +6,7 @@ import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import android.widget.TableLayout;
 import android.widget.TextView;
 
 import de.ubuntudroid.fitnesstracker.R;
@@ -46,18 +44,20 @@ public class WeekDataInputView extends RelativeLayout {
         input = (EditText) layout.findViewById(R.id.input);
         unit = (TextView) layout.findViewById(R.id.label_unit);
 
-        if (attrs != null) {
+        if (attrs != null && context != null && context.getTheme() != null) {
             TypedArray attributeArray = context.getTheme().obtainStyledAttributes(
                     attrs,
                     R.styleable.WeekDataInputView,
                     0, 0);
 
-            try {
-                desc.setText(attributeArray.getString(R.styleable.WeekDataInputView_desc));
-                input.setHint(attributeArray.getString(R.styleable.WeekDataInputView_hint));
-                unit.setText(attributeArray.getString(R.styleable.WeekDataInputView_unit));
-            } finally {
-                attributeArray.recycle();
+            if (attributeArray != null) {
+                try {
+                    desc.setText(attributeArray.getString(R.styleable.WeekDataInputView_desc));
+                    input.setHint(attributeArray.getString(R.styleable.WeekDataInputView_hint));
+                    unit.setText(attributeArray.getString(R.styleable.WeekDataInputView_unit));
+                } finally {
+                    attributeArray.recycle();
+                }
             }
         } else {
             // default layout
@@ -91,7 +91,7 @@ public class WeekDataInputView extends RelativeLayout {
     }
 
     public String getText() {
-        if (input != null) {
+        if (input != null && input.getText() != null) {
             return input.getText().toString().trim();
         } else {
             return "";

@@ -19,7 +19,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center_vertical"
-            app:desc="Weight"
+            app:desc="@string/week_data_input_weight"
             app:hint="e.g. 127.8"
             app:unit="lbs"
             />
@@ -31,7 +31,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center_vertical"
-            app:desc="Fat"
+            app:desc="@string/week_data_input_fat"
             app:hint="e.g. 27.4"
             app:unit="%"
             />
@@ -43,7 +43,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center_vertical"
-            app:desc="Muscle"
+            app:desc="@string/week_data_input_muscle"
             app:hint="e.g. 31.3"
             app:unit="%"
             />
@@ -55,7 +55,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center_vertical"
-            app:desc="Water"
+            app:desc="@string/week_data_input_water"
             app:hint="e.g. 49.2"
             app:unit="%"
             />

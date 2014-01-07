@@ -9,9 +9,9 @@ import com.squareup.otto.Subscribe;
 import javax.inject.Inject;
 
 import de.ubuntudroid.fitnesstracker.R;
+import de.ubuntudroid.fitnesstracker.controller.base.BaseFragmentActivity;
 import de.ubuntudroid.fitnesstracker.controller.fragments.WeekDetailFragment;
 import de.ubuntudroid.fitnesstracker.controller.fragments.WeekListFragment;
-import de.ubuntudroid.fitnesstracker.view.base.BaseFragmentActivity;
 import de.ubuntudroid.fitnesstracker.events.WeekSelectedEvent;
 
 

@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
+             xmlns:tools="http://schemas.android.com/tools"
+             android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:stretchColumns="1" >
 
-    <TableRow>
+    <!-- This TableLayout/TableRow layout combination is the only one which assures correct rendering
+        when used in fragment_week_detail.xml. All classic solutions involving LinearLayout and
+        RelativeLayout failed to expand the EditText to fill the available space -->
+    <TableRow tools:ignore="UselessParent">
 
         <TextView
             android:id="@+id/label"
