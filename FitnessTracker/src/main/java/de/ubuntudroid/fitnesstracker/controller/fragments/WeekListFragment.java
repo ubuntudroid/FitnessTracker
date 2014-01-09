@@ -70,14 +70,12 @@ public class WeekListFragment extends BaseListFragment {
         setHasOptionsMenu(true);
         mEventBus.register(this);
 
-        // TODO: replace with a real list adapter.
-        // TODO: use job queue for this task and show loader in the meantime
         mFitnessWeeks = mFitnessWeekController.getFitnessWeeks();
         if (mFitnessWeeks != null) {
             listAdapter = new FitnessWeekListAdapter(
                     getActivity(),
-                    android.R.layout.simple_list_item_activated_2,
-                    android.R.id.text1,
+                    R.layout.week_list_item,
+                    R.id.week_name,
                     mFitnessWeeks);
             setListAdapter(listAdapter);
         }
