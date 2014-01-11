@@ -20,7 +20,7 @@ public class FitnessWeekBus extends Bus {
             mainThread.post(new Runnable() {
                 @Override
                 public void run() {
-                    post(event);
+                    FitnessWeekBus.super.post(event);
                 }
             });
         }
