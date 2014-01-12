@@ -1,5 +1,7 @@
 package de.ubuntudroid.fitnesstracker.controller.fragments;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -18,11 +20,13 @@ import javax.inject.Inject;
 import de.ubuntudroid.fitnesstracker.R;
 import de.ubuntudroid.fitnesstracker.controller.FitnessWeekController;
 import de.ubuntudroid.fitnesstracker.controller.FitnessWeekListAdapter;
+import de.ubuntudroid.fitnesstracker.controller.activities.StatisticsActivity;
 import de.ubuntudroid.fitnesstracker.controller.base.BaseListFragment;
 import de.ubuntudroid.fitnesstracker.events.ModelInvalidatedEvent;
 import de.ubuntudroid.fitnesstracker.events.WeekAddedEvent;
 import de.ubuntudroid.fitnesstracker.events.WeekChangedEvent;
 import de.ubuntudroid.fitnesstracker.events.WeekSelectedEvent;
+import de.ubuntudroid.fitnesstracker.inject.annotation.ForApplication;
 import de.ubuntudroid.fitnesstracker.model.FitnessWeek;
 
 /**
@@ -44,6 +48,9 @@ public class WeekListFragment extends BaseListFragment {
 
     @Inject
     FitnessWeekController mFitnessWeekController;
+
+    @Inject @ForApplication
+    Context mApplicationContext;
 
     /**
      * The current activated item position. Only used on tablets.
@@ -123,6 +130,10 @@ public class WeekListFragment extends BaseListFragment {
                     mFitnessWeekController.addWeek(new FitnessWeek(1));
                 }
                 break;
+            case R.id.show_statistics_item:
+                Intent intent = new Intent(mApplicationContext, StatisticsActivity.class);
+                startActivity(intent);
+                break;
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -132,17 +143,6 @@ public class WeekListFragment extends BaseListFragment {
     @Subscribe
     public void onWeekChanged(WeekChangedEvent event) {
         if (listAdapter != null) {
-//            FitnessWeek changedWeek = event.getWeek();
-//            for (int i = 0; i < mFitnessWeeks.size(); i++) {
-//                FitnessWeek week = mFitnessWeeks.get(i);
-//                if (week.getWeekNumber() == changedWeek.getWeekNumber()) {
-//                    // replace changed week (we want this to be atomic, so we notify the adapter of the change ourselves)
-//                    listAdapter.setNotifyOnChange(false);
-//                    listAdapter.remove(week);
-//                    listAdapter.insert(changedWeek, i);
-//                    listAdapter.notifyDataSetChanged();
-//                }
-//            }
             listAdapter.notifyDataSetChanged();
         }
     }

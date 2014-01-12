@@ -2,17 +2,16 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="de.ubuntudroid.fitnesstracker" >
 
-    <uses-permission  android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
+        android:name="de.ubuntudroid.fitnesstracker.FitnessTrackerApplication"
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme"
-        android:name=".FitnessTrackerApplication">
-
+        android:theme="@style/AppTheme" >
         <activity
-            android:name=".controller.activities.WeekListActivity"
+            android:name="de.ubuntudroid.fitnesstracker.controller.activities.WeekListActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -21,12 +20,20 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".controller.activities.WeekDetailActivity"
+            android:name="de.ubuntudroid.fitnesstracker.controller.activities.WeekDetailActivity"
             android:label="@string/title_week_detail"
-            android:parentActivityName=".controller.activities.WeekListActivity" >
+            android:parentActivityName="de.ubuntudroid.fitnesstracker.controller.activities.WeekListActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="de.ubuntudroid.fitnesstracker.WeekListActivity" />
+        </activity>
+        <activity
+            android:name="de.ubuntudroid.fitnesstracker.controller.activities.StatisticsActivity"
+            android:label="@string/title_activity_statistics"
+            android:parentActivityName="de.ubuntudroid.fitnesstracker.controller.activities.WeekListActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="WeekListActivity" />
         </activity>
     </application>
 

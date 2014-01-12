@@ -13,6 +13,7 @@ import javax.inject.Singleton;
 import dagger.Module;
 import dagger.Provides;
 import de.ubuntudroid.fitnesstracker.FitnessTrackerApplication;
+import de.ubuntudroid.fitnesstracker.controller.fragments.StatisticsFragment;
 import de.ubuntudroid.fitnesstracker.jobs.GetAllWeeksJob;
 import de.ubuntudroid.fitnesstracker.controller.FitnessWeekController;
 import de.ubuntudroid.fitnesstracker.controller.fragments.WeekDetailFragment;
@@ -30,6 +31,7 @@ import de.ubuntudroid.fitnesstracker.jobs.PersistWeekJob;
         WeekListActivity.class,
         WeekListFragment.class,
         WeekDetailFragment.class,
+        StatisticsFragment.class,
         GetWeekJob.class,
         PersistWeekJob.class,
         FitnessWeekController.class,

@@ -7,4 +7,9 @@
           android:icon="@android:drawable/ic_menu_add"
           android:title="@string/week_fragment_menu_item_add"/>
 
+    <item android:id="@+id/show_statistics_item"
+          android:showAsAction="always"
+          android:icon="@android:drawable/ic_menu_sort_by_size"
+          android:title="@string/week_fragment_menu_item_statistics"/>
+
 </menu>

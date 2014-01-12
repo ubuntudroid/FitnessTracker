@@ -13,5 +13,9 @@
     <string name="week_data_input_fat">Fat</string>
     <string name="week_data_input_muscle">Muscle</string>
     <string name="week_data_input_water">Water</string>
+    <string name="week_fragment_menu_item_statistics">Statistics</string>
+    <string name="title_activity_statistics">Statistics</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
 
 </resources>
