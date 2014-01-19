@@ -1,0 +1,28 @@
+language: java
+
+env:
+  global:
+    - ANDROID_SDK_VERSION="r22.3"
+    - ANDROID_TARGET="android-19"
+    - GRADLE_VERSION="1.9"
+
+jdk:
+  - oraclejdk6
+
+before_install:
+  - sudo apt-get update -qq
+  - if [ `uname -m` = x86_64 ]; then sudo apt-get install -qq --force-yes libgd2-xpm ia32-libs ia32-libs-multiarch > /dev/null; fi
+  - wget http://dl.google.com/android/android-sdk_${ANDROID_SDK_VERSION}-linux.tgz
+  - tar -zxf android-sdk_${ANDROID_SDK_VERSION}-linux.tgz
+  - export ANDROID_HOME=$PWD/android-sdk-linux
+  - export PATH=${PATH}:${ANDROID_HOME}/tools:${ANDROID_HOME}/platform-tools
+  - android update sdk --filter platform-tools,${ANDROID_TARGET},extra-android-support,extra-android-m2repository --no-ui --force > /dev/null
+
+  # Update gradle distribution
+  - wget http://downloads.gradle.org/distributions/gradle-${GRADLE_VERSION}-all.zip
+  - unzip -q -o gradle-${GRADLE_VERSION}-all.zip
+  - export PATH="${BASEDIR}/gradle-${GRADLE_VERSION}/bin:${PATH}"
+
+  # Let's try to build...
+install: gradle build
+script: gradle check
