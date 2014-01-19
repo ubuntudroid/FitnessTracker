@@ -7,7 +7,7 @@ env:
     - GRADLE_VERSION="1.9"
 
 jdk:
-  - oraclejdk6
+  - oraclejdk7
 
 before_install:
   - sudo apt-get update -qq
