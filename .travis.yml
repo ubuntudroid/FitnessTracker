@@ -16,7 +16,7 @@ before_install:
   - tar -zxf android-sdk_${ANDROID_SDK_VERSION}-linux.tgz
   - export ANDROID_HOME=$PWD/android-sdk-linux
   - export PATH=${PATH}:${ANDROID_HOME}/tools:${ANDROID_HOME}/platform-tools:${ANDROID_HOME}/build-tools
-  - echo "y" | android update sdk --filter tool,platform-tool,${ANDROID_TARGET},extra-android-support,extra-android-m2repository --no-ui --force
+  - echo "y" | android update sdk --filter tool,platform-tool,${ANDROID_TARGET},extra-android-support,extra-android-m2repository --no-ui --force > /dev/null
 
   # Update gradle distribution
   - wget http://downloads.gradle.org/distributions/gradle-${GRADLE_VERSION}-all.zip
@@ -24,5 +24,4 @@ before_install:
   - export PATH="${BASEDIR}/gradle-${GRADLE_VERSION}/bin:${PATH}"
 
   # Let's try to build...
-install: gradle build
-script: gradle check
+install: gradle build --info
