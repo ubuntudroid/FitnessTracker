@@ -1,19 +1,13 @@
 package de.ubuntudroid.fitnesstracker.controller.fragments;
 
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.RelativeLayout;
 
-import com.jjoe64.graphview.CustomLabelFormatter;
 import com.jjoe64.graphview.GraphView;
-import com.jjoe64.graphview.GraphViewDataInterface;
 import com.jjoe64.graphview.GraphViewSeries;
-import com.jjoe64.graphview.GraphViewStyle;
 import com.jjoe64.graphview.LineGraphView;
-import com.jjoe64.graphview.ValueDependentColor;
 import com.squareup.otto.Bus;
 import com.squareup.otto.Subscribe;
 
@@ -123,7 +117,11 @@ public class StatisticsFragment extends BaseFragment {
             if (start < 1) {
                 start = 1;
             }
-            mGraphView.setViewPort(start, weightData.length - start - 1);
+            int end = weightData.length - start - 1;
+            if (end <= start) {
+                end = start + 1;
+            }
+            mGraphView.setViewPort(start, end);
         }
     }
 
