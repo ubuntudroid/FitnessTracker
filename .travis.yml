@@ -5,6 +5,7 @@ env:
     - ANDROID_SDK_VERSION="r22.3"
     - ANDROID_TARGET="android-19"
     - GRADLE_VERSION="1.9"
+    - BUILD_TOOL_VERSION="19.0.1"
 
 jdk:
   - oraclejdk7
@@ -16,7 +17,7 @@ before_install:
   - tar -zxf android-sdk_${ANDROID_SDK_VERSION}-linux.tgz
   - export ANDROID_HOME=$PWD/android-sdk-linux
   - export PATH=${PATH}:${ANDROID_HOME}/tools:${ANDROID_HOME}/platform-tools:${ANDROID_HOME}/build-tools
-  - echo "y" | android update sdk -a --filter buildTool,tool,platform-tool,${ANDROID_TARGET},extra-android-support,extra-android-m2repository --no-ui --force > /dev/null
+  - echo "y" | android update sdk -a --filter tool,platform-tool,build-tools-${BUILD_TOOL_VERSION},${ANDROID_TARGET},extra-android-support,extra-android-m2repository --no-ui --force > /dev/null
 
   # Update gradle distribution
   - wget http://downloads.gradle.org/distributions/gradle-${GRADLE_VERSION}-all.zip
