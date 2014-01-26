@@ -43,11 +43,17 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_6
         targetCompatibility JavaVersion.VERSION_1_6
     }
+
     buildTypes {
         release {
             runProguard false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
         }
+    }
+
+    // make sure that lint errors don't fail the build as lint does not always work properly with the android gradle plugin
+    lintOptions {
+        abortOnError false
     }
 }
 
