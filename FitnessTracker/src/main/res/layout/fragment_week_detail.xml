@@ -12,7 +12,7 @@
         android:padding="16dp"
         android:orientation="vertical">
 
-        <de.ubuntudroid.fitnesstracker.view.views.WeekDataInputView
+        <de.ubuntudroid.fitnesstracker.view.WeightWeekDataInputView
             android:id="@+id/weight_text"
             style="?android:attr/textAppearanceLarge"
             android:layout_width="match_parent"
@@ -24,7 +24,7 @@
             app:unit="lbs"
             />
 
-        <de.ubuntudroid.fitnesstracker.view.views.WeekDataInputView
+        <de.ubuntudroid.fitnesstracker.view.WeekDataInputView
             android:id="@+id/fat_fraction_text"
             style="?android:attr/textAppearanceLarge"
             android:layout_width="match_parent"
@@ -36,7 +36,7 @@
             app:unit="%"
             />
 
-        <de.ubuntudroid.fitnesstracker.view.views.WeekDataInputView
+        <de.ubuntudroid.fitnesstracker.view.WeekDataInputView
             android:id="@+id/water_fraction_text"
             style="?android:attr/textAppearanceLarge"
             android:layout_width="match_parent"
@@ -48,7 +48,7 @@
             app:unit="%"
             />
 
-        <de.ubuntudroid.fitnesstracker.view.views.WeekDataInputView
+        <de.ubuntudroid.fitnesstracker.view.WeekDataInputView
             android:id="@+id/muscle_fraction_text"
             style="?android:attr/textAppearanceLarge"
             android:layout_width="match_parent"

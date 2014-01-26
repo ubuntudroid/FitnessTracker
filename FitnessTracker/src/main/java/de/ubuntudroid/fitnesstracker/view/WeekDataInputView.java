@@ -1,4 +1,4 @@
-package de.ubuntudroid.fitnesstracker.view.views;
+package de.ubuntudroid.fitnesstracker.view;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -16,9 +16,9 @@ import de.ubuntudroid.fitnesstracker.R;
  */
 public class WeekDataInputView extends RelativeLayout {
 
-    private TextView desc;
-    private EditText input;
-    private TextView unit;
+    protected TextView desc;
+    protected EditText input;
+    protected TextView unit;
 
     // TODO allow for setting of text validator
 
@@ -37,7 +37,7 @@ public class WeekDataInputView extends RelativeLayout {
         init(context, attrs);
     }
 
-    private void init(Context context, AttributeSet attrs) {
+    protected void init(Context context, AttributeSet attrs) {
         ViewGroup layout = (ViewGroup) LayoutInflater.from(context).inflate(R.layout.week_data_input, null);
         addView(layout);
         desc = (TextView) layout.findViewById(R.id.label);

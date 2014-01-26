@@ -24,7 +24,8 @@ import de.ubuntudroid.fitnesstracker.controller.FitnessWeekController;
 import de.ubuntudroid.fitnesstracker.controller.base.BaseFragment;
 import de.ubuntudroid.fitnesstracker.events.ModelInvalidatedEvent;
 import de.ubuntudroid.fitnesstracker.model.FitnessWeek;
-import de.ubuntudroid.fitnesstracker.view.views.WeekDataInputView;
+import de.ubuntudroid.fitnesstracker.view.WeekDataInputView;
+import de.ubuntudroid.fitnesstracker.view.WeightWeekDataInputView;
 
 /**
  * A fragment representing a single Week detail screen.
@@ -33,23 +34,25 @@ import de.ubuntudroid.fitnesstracker.view.views.WeekDataInputView;
  * on handsets.
  */
 public class WeekDetailFragment extends BaseFragment {
+    //region public members
     /**
      * The fragment argument representing the item ID that this fragment
      * represents.
      */
     public static final String ARG_ITEM_ID = "item_id";
+    //endregion
 
-    private FitnessWeek week;
-
+    //region injections
     @Inject
     Bus mEventBus;
 
     @Inject
     FitnessWeekController mFitnessWeekController;
+    //endregion
 
     //region Views
     @InjectView(R.id.weight_text)
-    WeekDataInputView weightView;
+    WeightWeekDataInputView weightView;
     @InjectView(R.id.muscle_fraction_text)
     WeekDataInputView muscleView;
     @InjectView(R.id.water_fraction_text)
@@ -60,7 +63,10 @@ public class WeekDetailFragment extends BaseFragment {
     ProgressBar refreshProgressBar;
     //endregion
 
+    //region private members
     private boolean isRefreshing = false;
+    private FitnessWeek week;
+    //endregion
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -69,6 +75,7 @@ public class WeekDetailFragment extends BaseFragment {
     public WeekDetailFragment() {
     }
 
+    //region Android lifecycle methods
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -126,7 +133,9 @@ public class WeekDetailFragment extends BaseFragment {
         }
         return true;
     }
+    //endregion
 
+    //region subscriptions
     @Subscribe
     public void onModelInvalidatedEvent(ModelInvalidatedEvent event) {
         List<FitnessWeek> fitnessWeeks = mFitnessWeekController.getFitnessWeeks();
@@ -141,27 +150,25 @@ public class WeekDetailFragment extends BaseFragment {
             // TODO There seems to be some error with the DB, notify the user
         }
     }
+    //endregion
 
+    //region private methods
     private void updateGui() {
         if (week != null) {
             if (week.getWeight() >= 0) {
                 weightView.setText(String.valueOf(week.getWeight()));
-                weightView.setEditable(false);
             }
 
             if (week.getMuscleFraction() >= 0) {
                 muscleView.setText(String.valueOf(week.getMuscleFraction()));
-                muscleView.setEditable(false);
             }
 
             if (week.getWaterFraction() >= 0) {
                 waterView.setText(String.valueOf(week.getWaterFraction()));
-                waterView.setEditable(false);
             }
 
             if (week.getFatFraction() >= 0) {
                 fatView.setText(String.valueOf(week.getFatFraction()));
-                fatView.setEditable(false);
             }
         }
     }
@@ -218,6 +225,6 @@ public class WeekDetailFragment extends BaseFragment {
 
         mFitnessWeekController.addWeek(week);
     }
-
+    //endregion
 
 }
