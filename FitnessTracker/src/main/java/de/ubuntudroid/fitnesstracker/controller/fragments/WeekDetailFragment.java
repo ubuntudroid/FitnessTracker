@@ -17,6 +17,8 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import butterknife.ButterKnife;
+import butterknife.InjectView;
 import de.ubuntudroid.fitnesstracker.R;
 import de.ubuntudroid.fitnesstracker.controller.FitnessWeekController;
 import de.ubuntudroid.fitnesstracker.controller.base.BaseFragment;
@@ -45,13 +47,20 @@ public class WeekDetailFragment extends BaseFragment {
     @Inject
     FitnessWeekController mFitnessWeekController;
 
-    private WeekDataInputView weightView;
-    private WeekDataInputView muscleView;
-    private WeekDataInputView waterView;
-    private WeekDataInputView fatView;
+    //region Views
+    @InjectView(R.id.weight_text)
+    WeekDataInputView weightView;
+    @InjectView(R.id.muscle_fraction_text)
+    WeekDataInputView muscleView;
+    @InjectView(R.id.water_fraction_text)
+    WeekDataInputView waterView;
+    @InjectView(R.id.fat_fraction_text)
+    WeekDataInputView fatView;
+    @InjectView(R.id.refresh_progress)
+    ProgressBar refreshProgressBar;
+    //endregion
 
     private boolean isRefreshing = false;
-    private ProgressBar refreshProgressBar;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -82,12 +91,7 @@ public class WeekDetailFragment extends BaseFragment {
             Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_week_detail, container, false);
         if (rootView != null) {
-            weightView = (WeekDataInputView) rootView.findViewById(R.id.weight_text);
-            muscleView = (WeekDataInputView) rootView.findViewById(R.id.muscle_fraction_text);
-            waterView = (WeekDataInputView) rootView.findViewById(R.id.water_fraction_text);
-            fatView = (WeekDataInputView) rootView.findViewById(R.id.fat_fraction_text);
-            refreshProgressBar = (ProgressBar) rootView.findViewById(R.id.refresh_progress);
-
+            ButterKnife.inject(this, rootView);
             if (isRefreshing) {
                 refreshProgressBar.setVisibility(View.VISIBLE);
             } else {
