@@ -2,7 +2,7 @@ language: java
 
 env:
   global:
-    - ANDROID_SDK_VERSION="r22.6.3"
+    - ANDROID_SDK_VERSION="r22.6.2"
     - ANDROID_TARGET="android-19"
     - GRADLE_VERSION="1.12"
     - BUILD_TOOL_VERSION="19.0.3"
