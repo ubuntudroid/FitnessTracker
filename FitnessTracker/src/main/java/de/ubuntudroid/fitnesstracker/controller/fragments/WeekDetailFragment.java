@@ -1,5 +1,6 @@
 package de.ubuntudroid.fitnesstracker.controller.fragments;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -9,6 +10,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.squareup.otto.Bus;
 import com.squareup.otto.Subscribe;
@@ -23,6 +25,7 @@ import de.ubuntudroid.fitnesstracker.R;
 import de.ubuntudroid.fitnesstracker.controller.FitnessWeekController;
 import de.ubuntudroid.fitnesstracker.controller.base.BaseFragment;
 import de.ubuntudroid.fitnesstracker.events.ModelInvalidatedEvent;
+import de.ubuntudroid.fitnesstracker.inject.annotation.ForApplication;
 import de.ubuntudroid.fitnesstracker.model.FitnessWeek;
 import de.ubuntudroid.fitnesstracker.view.WeekDataInputView;
 import de.ubuntudroid.fitnesstracker.view.WeightWeekDataInputView;
@@ -48,6 +51,9 @@ public class WeekDetailFragment extends BaseFragment {
 
     @Inject
     FitnessWeekController mFitnessWeekController;
+
+    @Inject @ForApplication
+    Context mApplicationContext;
     //endregion
 
     //region Views
@@ -127,6 +133,7 @@ public class WeekDetailFragment extends BaseFragment {
             case R.id.save_menu_item:
                 persistInputs();
                 updateGui();
+                Toast.makeText(getActivity(), mApplicationContext.getString(R.string.toast_action_data_saved), Toast.LENGTH_SHORT).show();
                 break;
             default:
                 return super.onOptionsItemSelected(item);
@@ -147,7 +154,7 @@ public class WeekDetailFragment extends BaseFragment {
             }
             isRefreshing = false;
         } else {
-            // TODO There seems to be some error with the DB, notify the user
+            Toast.makeText(getActivity(), mApplicationContext.getString(R.string.toast_error_db_access_fault), Toast.LENGTH_LONG).show();
         }
     }
     //endregion
