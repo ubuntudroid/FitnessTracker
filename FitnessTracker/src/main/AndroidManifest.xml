@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="de.ubuntudroid.fitnesstracker" >
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
+        tools:replace="label"
         android:name="de.ubuntudroid.fitnesstracker.FitnessTrackerApplication"
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
