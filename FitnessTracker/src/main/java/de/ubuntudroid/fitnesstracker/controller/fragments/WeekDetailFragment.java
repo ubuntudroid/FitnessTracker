@@ -107,7 +107,9 @@ public class WeekDetailFragment extends BaseFragment {
             ButterKnife.inject(this, rootView);
             if (isRefreshing) {
                 refreshProgressBar.setVisibility(View.VISIBLE);
-            } else {
+            } else if (savedInstanceState == null) {
+                // we only update our input fields if we are starting the activity freshly, otherwise
+                // the WeekDataInputViews will take care of storing their state themselves
                 updateGui();
             }
         }

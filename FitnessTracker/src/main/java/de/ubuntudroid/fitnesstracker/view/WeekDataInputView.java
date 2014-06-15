@@ -1,7 +1,10 @@
 package de.ubuntudroid.fitnesstracker.view;
 
 import android.content.Context;
+import android.content.res.Configuration;
 import android.content.res.TypedArray;
+import android.os.Bundle;
+import android.os.Parcelable;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
@@ -112,5 +115,28 @@ public class WeekDataInputView extends RelativeLayout {
 
     public void setUnit(TextView unit) {
         this.unit = unit;
+    }
+
+    @Override
+    public Parcelable onSaveInstanceState() {
+        Bundle bundle = new Bundle();
+        bundle.putParcelable("instanceState", super.onSaveInstanceState());
+        // we have to store/restore the input value ourselves as there could be multiple WeekDataInputViews
+        // in one Activity causing all of them having the same values after an orientation change if
+        // we let Android handle this itself. That's also the reason for setting saveEnabled to false
+        // in our XML.
+        bundle.putString("inputValue", input.getText().toString());
+        return bundle;
+    }
+
+    @Override
+    public void onRestoreInstanceState(Parcelable state) {
+        if (state instanceof Bundle) {
+            Bundle bundle = (Bundle) state;
+            super.onRestoreInstanceState(bundle.getParcelable("instanceState"));
+            input.setText(bundle.getString("inputValue"));
+        } else {
+            super.onRestoreInstanceState(state);
+        }
     }
 }
