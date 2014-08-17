@@ -46,10 +46,13 @@ public class FitnessWeekListAdapter extends ArrayAdapter<FitnessWeek> {
                 if (weekBefore != null && currentWeek.getWeight() > -1) {
                     if (weekBefore.getWeight() > currentWeek.getWeight()) {
                         mainTextView.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_green_check , 0);
+                        mainTextView.setContentDescription(mainTextView.getText() + ": weight decreasing");
                     } else if (weekBefore.getWeight() < currentWeek.getWeight()) {
                         mainTextView.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_red_exclamation , 0);
+                        mainTextView.setContentDescription(mainTextView.getText() + ": weight increasing");
                     } else {
                         mainTextView.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_yellow_check , 0);
+                        mainTextView.setContentDescription(mainTextView.getText() + ": weight stagnant");
                     }
 
                     SpannableStringBuilder stringBuilder = new SpannableStringBuilder();
@@ -91,10 +94,12 @@ public class FitnessWeekListAdapter extends ArrayAdapter<FitnessWeek> {
                 } else {
                     subTextView.setText("");
                     mainTextView.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
+                    mainTextView.setContentDescription(mainTextView.getText() + ": weight trend unknown");
                 }
             } else {
                 subTextView.setText("");
                 mainTextView.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
+                mainTextView.setContentDescription(mainTextView.getText() + ": weight trend unknown");
             }
         }
         return view;

@@ -55,7 +55,12 @@ public class WeekDataInputView extends RelativeLayout {
 
             if (attributeArray != null) {
                 try {
-                    desc.setText(attributeArray.getString(R.styleable.WeekDataInputView_desc));
+                    String descriptionText = attributeArray.getString(R.styleable.WeekDataInputView_desc);
+                    desc.setText(descriptionText);
+
+                    // for calabash
+                    input.setContentDescription(descriptionText);
+
                     input.setHint(attributeArray.getString(R.styleable.WeekDataInputView_hint));
                     unit.setText(attributeArray.getString(R.styleable.WeekDataInputView_unit));
                 } finally {
@@ -74,6 +79,11 @@ public class WeekDataInputView extends RelativeLayout {
             desc.setText(text);
             invalidate();
             requestLayout();
+        }
+
+        if (input != null) {
+            // for calabash
+            input.setTag(text);
         }
     }
 
