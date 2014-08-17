@@ -2,10 +2,10 @@ language: java
 
 env:
   global:
-    - ANDROID_SDK_VERSION="r22.6.2"
-    - ANDROID_TARGET="android-19"
+    - ANDROID_SDK_VERSION="r23.0.2"
+    - ANDROID_TARGET="android-20"
     - GRADLE_VERSION="1.12"
-    - BUILD_TOOL_VERSION="19.1.0"
+    - BUILD_TOOL_VERSION="20"
 
 jdk:
   - oraclejdk7
