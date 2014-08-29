@@ -29,12 +29,12 @@ repositories {
 }
 
 android {
-    compileSdkVersion 20
+    compileSdkVersion 'android-L'
     buildToolsVersion "20"
 
     defaultConfig {
-        minSdkVersion 14
-        targetSdkVersion 20
+        minSdkVersion 'L'
+        targetSdkVersion 'L'
         versionCode 1
         versionName "1.0"
     }
