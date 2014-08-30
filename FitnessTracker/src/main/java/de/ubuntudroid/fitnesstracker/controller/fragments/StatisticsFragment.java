@@ -106,7 +106,7 @@ public class StatisticsFragment extends BaseFragment {
                 // fill from last to first to ensure proper orientation
                 weightData[weightData.length - 1 - i] = new GraphView.GraphViewData(fitnessWeek.getWeekNumber(), fitnessWeek.getWeight());
             }
-            GraphViewSeries.GraphViewSeriesStyle graphViewSeriesStyle = new GraphViewSeries.GraphViewSeriesStyle(getResources().getColor(android.R.color.holo_blue_dark), 5);
+            GraphViewSeries.GraphViewSeriesStyle graphViewSeriesStyle = new GraphViewSeries.GraphViewSeriesStyle(getResources().getColor(R.color.detail_light_red), 5);
             GraphViewSeries graphViewSeries = new GraphViewSeries(getString(R.string.week_data_input_weight), graphViewSeriesStyle, weightData);
 
             mGraphView.removeAllSeries();

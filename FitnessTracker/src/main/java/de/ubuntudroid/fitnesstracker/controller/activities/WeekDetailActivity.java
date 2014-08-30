@@ -4,6 +4,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.NavUtils;
+import android.transition.Explode;
+import android.transition.Fade;
+import android.transition.Slide;
+import android.view.Gravity;
 import android.view.MenuItem;
 
 import de.ubuntudroid.fitnesstracker.R;
@@ -25,9 +29,11 @@ public class WeekDetailActivity extends FragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_week_detail);
 
+        getWindow().setEnterTransition(new Fade());
         // Show the Up button in the action bar.
         if (getActionBar() != null) {
             getActionBar().setDisplayHomeAsUpEnabled(true);
+            getActionBar().setTitle(getResources().getString(R.string.week) + " " + getIntent().getIntExtra(WeekDetailFragment.ARG_ITEM_ID, 1));
         }
 
         // savedInstanceState is non-null when there is fragment state

@@ -123,13 +123,6 @@ public class WeekListFragment extends BaseListFragment {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.add_menu_item:
-                if (mFitnessWeeks.size() > 0) {
-                    mFitnessWeekController.addWeek(new FitnessWeek(mFitnessWeeks.get(0).getWeekNumber() + 1));
-                } else {
-                    mFitnessWeekController.addWeek(new FitnessWeek(1));
-                }
-                break;
             case R.id.show_statistics_item:
                 Intent intent = new Intent(mApplicationContext, StatisticsActivity.class);
                 startActivity(intent);
@@ -176,7 +169,7 @@ public class WeekListFragment extends BaseListFragment {
         super.onListItemClick(listView, view, position, id);
         mActivatedPosition = position;
 
-        mEventBus.post(new WeekSelectedEvent(mFitnessWeeks.get(position).getWeekNumber()));
+        mEventBus.post(new WeekSelectedEvent(mFitnessWeeks.get(position).getWeekNumber(), view, WeekSelectedEvent.ANIMATION_TYPE_SCALE));
     }
 
     /**
@@ -199,5 +192,11 @@ public class WeekListFragment extends BaseListFragment {
         }
 
         mActivatedPosition = position;
+    }
+
+    public void setOnTouchListener ( View.OnTouchListener onTouchListener ) {
+        if (getListView() != null) {
+            getListView().setOnTouchListener(onTouchListener);
+        }
     }
 }

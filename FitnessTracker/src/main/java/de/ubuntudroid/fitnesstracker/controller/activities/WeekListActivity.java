@@ -1,18 +1,24 @@
 package de.ubuntudroid.fitnesstracker.controller.activities;
 
+import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.view.View;
 
+import com.shamanland.fab.ShowHideOnScroll;
 import com.squareup.otto.Bus;
 import com.squareup.otto.Subscribe;
 
 import javax.inject.Inject;
 
 import de.ubuntudroid.fitnesstracker.R;
+import de.ubuntudroid.fitnesstracker.controller.FitnessWeekController;
 import de.ubuntudroid.fitnesstracker.controller.base.BaseFragmentActivity;
 import de.ubuntudroid.fitnesstracker.controller.fragments.WeekDetailFragment;
 import de.ubuntudroid.fitnesstracker.controller.fragments.WeekListFragment;
 import de.ubuntudroid.fitnesstracker.events.WeekSelectedEvent;
+import de.ubuntudroid.fitnesstracker.model.FitnessWeek;
 
 
 /**
@@ -38,6 +44,9 @@ public class WeekListActivity extends BaseFragmentActivity {
     @Inject
     Bus mEventBus;
 
+    @Inject
+    FitnessWeekController mController;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,6 +54,8 @@ public class WeekListActivity extends BaseFragmentActivity {
 
         mEventBus.register(this);
 
+        WeekListFragment weekListFragment = (WeekListFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.week_list);
         if (findViewById(R.id.week_detail_container) != null) {
             // The detail container view will be present only in the
             // large-screen layouts (res/values-large and
@@ -54,9 +65,9 @@ public class WeekListActivity extends BaseFragmentActivity {
 
             // In two-pane mode, list items should be given the
             // 'activated' state when touched.
-            ((WeekListFragment) getSupportFragmentManager()
-                    .findFragmentById(R.id.week_list))
-                    .setActivateOnItemClick(true);
+            weekListFragment.setActivateOnItemClick(true);
+        } else {
+            weekListFragment.setOnTouchListener(new ShowHideOnScroll(findViewById(R.id.add_week_button)));
         }
 
         // TODO: If exposing deep links into your app, handle intents here.
@@ -68,15 +79,37 @@ public class WeekListActivity extends BaseFragmentActivity {
         super.onDestroy();
     }
 
+    @SuppressWarnings("PublicMethodNotExposedInInterface")
+    public void onAddWeek ( final View view ) {
+        final int weekNumber;
+        if (mController.getFitnessWeeks().size() > 0) {
+            weekNumber = mController.getFitnessWeeks().get(0).getWeekNumber() + 1;
+        } else {
+            weekNumber = 1;
+        }
+        mController.addWeek(new FitnessWeek(weekNumber));
+        view.setEnabled(false);
+
+        // we have to wait until the new week has been successfully added, this is somewhat hacky but works
+        view.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                view.setEnabled(true);
+                weekSelected(new WeekSelectedEvent(weekNumber, view, WeekSelectedEvent.ANIMATION_TYPE_SCENE_TRANSITION));
+            }
+        }, 500);
+    }
+
     @Subscribe
-    public void weekSelected(WeekSelectedEvent event) {
+    public void weekSelected(@SuppressWarnings("MethodParameterOfConcreteClass") WeekSelectedEvent event) {
+        int weekId = event.getWeekId();
         if (mTwoPane) {
             // In two-pane mode, show the detail view in this activity by
             // adding or replacing the detail fragment using a
             // fragment transaction.
             Bundle arguments = new Bundle();
-            arguments.putInt(WeekDetailFragment.ARG_ITEM_ID, event.getWeekId());
-            WeekDetailFragment fragment = new WeekDetailFragment();
+            arguments.putInt(WeekDetailFragment.ARG_ITEM_ID, weekId);
+            Fragment fragment = new WeekDetailFragment();
             fragment.setArguments(arguments);
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.week_detail_container, fragment)
@@ -86,8 +119,19 @@ public class WeekListActivity extends BaseFragmentActivity {
             // In single-pane mode, simply start the detail activity
             // for the selected item ID.
             Intent detailIntent = new Intent(this, WeekDetailActivity.class);
-            detailIntent.putExtra(WeekDetailFragment.ARG_ITEM_ID, event.getWeekId());
-            startActivity(detailIntent);
+            detailIntent.putExtra(WeekDetailFragment.ARG_ITEM_ID, weekId);
+            View sourceView = event.getView();
+            if (sourceView != null) {
+                ActivityOptions activityOptions;
+                if (event.getDesiredAnimationType() == WeekSelectedEvent.ANIMATION_TYPE_SCALE) {
+                    activityOptions = ActivityOptions.makeScaleUpAnimation(sourceView, sourceView.getWidth() / 2, sourceView.getHeight() / 2, sourceView.getWidth(), sourceView.getHeight());
+                } else {
+                    activityOptions = ActivityOptions.makeSceneTransitionAnimation(this, sourceView, "week_detail_container");
+                }
+                startActivity(detailIntent, activityOptions.toBundle());
+            } else {
+                startActivity(detailIntent);
+            }
         }
     }
 }

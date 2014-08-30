@@ -1,8 +1,14 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="android:Theme.Material.Light">
-        <!-- Customize your theme here. -->
+    <style name="AppTheme" parent="android:Theme.Material">
+        <item name="android:windowContentTransitions">true</item>
+        <item name="android:colorControlHighlight">@color/detail_light_red</item>
+        <item name="floatingActionButtonStyle">@style/AppTheme.Fab</item>
+    </style>
+
+    <style name="AppTheme.Fab" parent="FloatingActionButton">
+        <item name="floatingActionButtonColor">@color/detail_light_red</item>
     </style>
 
 </resources>

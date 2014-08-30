@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="detail_light_red">#ff5a5f</color>
+    <color name="detail_light_red_darker">#E64146</color>
+    <color name="text_color_hint">#AAFFFFFF</color>
+</resources>
