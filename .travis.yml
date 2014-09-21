@@ -22,9 +22,9 @@ before_install:
   - chmod +x gradlew
 
   # Update gradle distribution
-  - wget http://downloads.gradle.org/distributions/gradle-${GRADLE_VERSION}-all.zip
-  - unzip -q -o gradle-${GRADLE_VERSION}-all.zip
-  - export PATH="${BASEDIR}/gradle-${GRADLE_VERSION}/bin:${PATH}"
+  #- wget http://downloads.gradle.org/distributions/gradle-${GRADLE_VERSION}-all.zip
+  #- unzip -q -o gradle-${GRADLE_VERSION}-all.zip
+  #- export PATH="${BASEDIR}/gradle-${GRADLE_VERSION}/bin:${PATH}"
 
   # Let's try to build...
-install: gradle build --info
+install: ./gradlew build --info
