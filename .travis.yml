@@ -27,4 +27,5 @@ android:
     #- sys-img-x86-android-17
 
 script:
+    - chmod +x gradlew
     - ./gradlew build --info
